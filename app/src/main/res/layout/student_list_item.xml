@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:cardBackgroundColor="@color/card_background"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:cardMaxElevation="5dp"
+        app:contentPadding="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight=".75">
+                <TextView
+                    android:id="@+id/name_one"
+                    android:text="@string/list_header_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:gravity="center"
+                    android:fontFamily="@font/font_opensans_light"
+                    android:textColor="@color/white"
+                    android:textSize="20sp">
+                </TextView>
+                <TextView
+                    android:id="@+id/email_one"
+                    android:text="@string/list_header_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:gravity="center"
+                    android:fontFamily="@font/font_opensans_light"
+                    android:textColor="@color/white"
+                    android:textSize="20sp">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/mobileNo_one"
+                    android:text="@string/list_header_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:gravity="center"
+                    android:fontFamily="@font/font_opensans_light"
+                    android:textColor="@color/white"
+                    android:textSize="20sp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/year_one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:fontFamily="@font/font_opensans_light"
+                    android:gravity="center"
+                    android:text="@string/list_header_year"
+                    android:textColor="@color/white"
+                    android:textSize="20sp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/amount_one"
+                    android:text="@string/list_header_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:gravity="center"
+                    android:fontFamily="@font/font_opensans_light"
+                    android:textColor="@color/white"
+                    android:textSize="20sp">
+
+                </TextView>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:orientation="vertical"
+                android:layout_weight="2.25">
+                <TextView
+                    android:id="@+id/name"
+                    android:text="@string/list_header_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:gravity="center"
+                    android:fontFamily="@font/font_opensans_light"
+                    android:textColor="@color/white"
+                    android:textSize="20sp">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/email"
+                    android:text="@string/list_header_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:gravity="center"
+                    android:fontFamily="@font/font_opensans_light"
+                    android:textColor="@color/white"
+                    android:textSize="20sp">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/mobileNo"
+                    android:text="@string/list_header_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:gravity="center"
+                    android:fontFamily="@font/font_opensans_light"
+                    android:textColor="@color/white"
+                    android:textSize="20sp">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/year"
+                    android:text="@string/list_header_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:gravity="center"
+                    android:fontFamily="@font/font_opensans_light"
+                    android:textColor="@color/white"
+                    android:textSize="20sp">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/amount"
+                    android:text="@string/list_header_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:gravity="center"
+                    android:fontFamily="@font/font_opensans_light"
+                    android:textColor="@color/white"
+                    android:textSize="20sp">
+                </TextView>
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
