@@ -1,19 +1,23 @@
 package com.satyasoft.myschoolavhiyan.activity.ui.studentRestration
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.telephony.SmsManager
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.satyasoft.myschoolavhiyan.R
 import com.satyasoft.myschoolavhiyan.activity.MainActivity
-import com.satyasoft.myschoolavhiyan.activity.MainActivity.Companion.userId
 import com.satyasoft.myschoolavhiyan.database.SchoolMasterDatabase
 import com.satyasoft.myschoolavhiyan.database.StudentDetails
 import com.satyasoft.myschoolavhiyan.databinding.FragmentHomeBinding
@@ -30,11 +34,11 @@ class RegistrationFragment : Fragment() {
      private  val studentIdDetails: ArrayList<StudentDetails?>? = null
      @SuppressLint("UseRequireInsteadOfGet")
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+         inflater: LayoutInflater,
+         container: ViewGroup?,
+         savedInstanceState: Bundle?,
 
-    ): View {
+         ): View {
        val  homeViewModel =
             ViewModelProvider(this).get(RegistrationViewModel::class.java)
 
@@ -104,7 +108,6 @@ class RegistrationFragment : Fragment() {
                                 mobileNo.text.toString(),
                                 year.text.toString(),
                                 amount.text.toString())
-
                         )
                 }
                 val recipient = empEmail.text.toString()
@@ -114,6 +117,8 @@ class RegistrationFragment : Fragment() {
 
                 //method call for email intent with these inputs as parameters
                 sendEmail(recipient, subject, message)
+                sendSMS(mobileNo.text.toString(),message)
+
             }
         }
 
@@ -134,6 +139,31 @@ class RegistrationFragment : Fragment() {
             Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
         }
     }
+    private fun sendSMS(phoneNo: String?, msg: String?) {
+
+        if (ActivityCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED
+        ) {
+            try {
+                val smsMgrVar = SmsManager.getDefault()
+                smsMgrVar.sendTextMessage(phoneNo, null, msg, null, null)
+                Toast.makeText(requireContext(), "Message Sent",
+                    Toast.LENGTH_LONG).show()
+            } catch (ErrVar: Exception) {
+                Toast.makeText(requireContext(),
+                    ErrVar.message.toString(),
+                    Toast.LENGTH_LONG).show()
+                ErrVar.printStackTrace()
+            }
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(arrayOf(Manifest.permission.SEND_SMS), 10)
+            }
+        }
+
+    }
+
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

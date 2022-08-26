@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -159,7 +158,7 @@ class StudentDetailInfoFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.N)
     private fun createPdf(studentInfoList: MutableList<StudentDetails>) {
         val onError: (Exception) -> Unit = { toastErrorMessage(it.message.toString()) }
-        val onFinish: (File) -> Unit = { openFile(it) }
+       // val onFinish: (File) -> Unit = { openFile(it) }
         val paragraphList = listOf(
             getString(R.string.copy_right)
         )
@@ -167,7 +166,7 @@ class StudentDetailInfoFragment : Fragment() {
         pdfService.createUserTable(
             data = studentInfoList,
             paragraphList = paragraphList,
-            onFinish = onFinish,
+           // onFinish = onFinish,
             onError = onError
         )
     }
@@ -218,26 +217,23 @@ class StudentDetailInfoFragment : Fragment() {
 
     private fun sharedBySocialMedia(){
 
-//        val imagePath = File(requireContext().getFilesDir(), "external_files")
-//        val newFile = File(imagePath, "MoSchoolAbhiyan.pdf")
-//        val contentUri = getUriForFile(context!!, "com.satyasoft.myschoolavhiyan.fileprovider", newFile)
-//        val shareIntent = Intent(Intent.ACTION_SEND)
-//        shareIntent.type = "application/pdf"
-//        shareIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("satya.igu@gmail.com"))
-//        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Mo School Abhiyan")
-//        shareIntent.putExtra(Intent.EXTRA_TEXT, "Thanks your support for Mo School Abhiyan \n \n  Regards, \n \n H.M PBBP,Shibapura")
-//        shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri)
-//        startActivity(shareIntent)
+        val file =
+            File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                .toString() + "/" + "MoSchoolAbhiyan.pdf")
+        if (file.exists()) {
+            val uri = getUriForFile(requireContext(), "com.satyasoft.myschoolavhiyan" + ".provider", file)
+            val shareIntent = Intent(Intent.ACTION_SEND)
+            shareIntent.setDataAndType(uri, "application/pdf")
+            shareIntent.setDataAndType(uri,"text/html")
+            shareIntent.setDataAndType(uri,"message/rfc822")
+            shareIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("satya.igu@gmail.com"))
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Mo School Abhiyan")
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "Thanks your support for Mo School Abhiyan \n \n  Regards, \n \n H.M PBBP,Shibapura")
+            shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
+            shareIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_GRANT_READ_URI_PERMISSION
+            requireContext().startActivity(shareIntent)
+        }
 
-        val file = File(Environment.getExternalStorageDirectory().toString() +"Download/MoSchoolAbhiyan.pdf")
-        val uri = Uri.fromFile(file)
-        val shareIntent = Intent(Intent.ACTION_SEND)
-        shareIntent.type = "application/pdf"
-        shareIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("satya.igu@gmail.com"))
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Mo School Abhiyan")
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "Thanks your support for Mo School Abhiyan \n \n  Regards, \n \n H.M PBBP,Shibapura")
-        shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
-        startActivity(shareIntent)
     }
 
 }

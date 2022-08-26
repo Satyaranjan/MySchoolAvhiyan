@@ -65,10 +65,6 @@ fun String.toStringArray(): List<String> {
     var newData = this.replace("[", "")
     newData = newData.replace("]", "")
 
-    /** These two removals are used for getting through API (not sheet service)*/
-    /*newData = newData.removeRange(0,0)
-    newData = newData.removeRange(newData.length,newData.length)*/
-
     val splitter = newData.split("\",")
     val output = ArrayList<String>()
     splitter.forEach {

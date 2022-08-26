@@ -7,7 +7,6 @@ import android.content.pm.PackageManager.PERMISSION_GRANTED
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import com.satyasoft.myschoolavhiyan.activity.ui.studentDetails.StudentDetailInfoFragment
 
 
 class AppPermission {

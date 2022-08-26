@@ -3,12 +3,10 @@ package com.satyasoft.myschoolavhiyan.pdfService
 import android.os.Build
 import android.os.Environment
 import androidx.annotation.RequiresApi
-import com.itextpdf.awt.geom.misc.Messages.getString
 import com.itextpdf.text.*
 import com.itextpdf.text.pdf.PdfPCell
 import com.itextpdf.text.pdf.PdfPTable
 import com.itextpdf.text.pdf.PdfWriter
-import com.satyasoft.myschoolavhiyan.R
 import com.satyasoft.myschoolavhiyan.database.StudentDetails
 import java.io.File
 import java.io.FileOutputStream
@@ -84,7 +82,7 @@ class PdfService {
     fun createUserTable(
         data: MutableList<StudentDetails>,
         paragraphList: List<String>,
-        onFinish: (file: File) -> Unit,
+      //  onFinish: (file: File) -> Unit,
         onError: (Exception) -> Unit
     ) {
         //Define the document
@@ -159,7 +157,7 @@ class PdfService {
         } catch (ex: Exception) {
             onError(ex)
         } finally {
-            onFinish(file)
+          //  onFinish(file)
         }
     }
 }

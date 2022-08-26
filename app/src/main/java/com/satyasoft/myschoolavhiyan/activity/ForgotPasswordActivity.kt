@@ -1,18 +1,13 @@
 package com.satyasoft.myschoolavhiyan.activity
 
-import android.content.Intent
-import android.icu.lang.UCharacter.GraphemeClusterBreak.V
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.core.view.View
 import com.satyasoft.myschoolavhiyan.R
 import com.satyasoft.myschoolavhiyan.utils.CustomDialogs
 

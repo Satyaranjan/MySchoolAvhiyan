@@ -1,10 +1,6 @@
 package com.satyasoft.myschoolavhiyan.activity
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -86,8 +82,7 @@ class SignupActivity : AppCompatActivity() {
         if (NetworkConnectionStatus.checkConnection(this@SignupActivity)) {
             auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
                 if (it.isSuccessful) {
-                    //  Toast.makeText(this, "Successfully Singed Up", Toast.LENGTH_SHORT).show()
-                  //  progressBar.visibility = View.GONE
+
                     CustomDialogs.commonDialog(
                         this@SignupActivity,
                         getString(R.string.signup_me),
