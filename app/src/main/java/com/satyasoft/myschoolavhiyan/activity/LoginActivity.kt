@@ -2,15 +2,17 @@ package com.satyasoft.myschoolavhiyan.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.satyasoft.myschoolavhiyan.R
+import com.satyasoft.myschoolavhiyan.database.SchoolMasterDatabase
 import com.satyasoft.myschoolavhiyan.utils.CustomDialogs
 import com.satyasoft.myschoolavhiyan.utils.NetworkConnectionStatus
 
@@ -93,7 +95,34 @@ class LoginActivity : AppCompatActivity() {
         }
     }
  private fun loginInRoomDataBase(email :String, pass:String){
-      Toast.makeText(applicationContext,"NoInternet Connection !!!",Toast.LENGTH_SHORT).show()
+     run {
+
+         val getUserId = SchoolMasterDatabase.getSchoolMasterDataBase(this@LoginActivity)
+             .staffRegistrationDAO()
+             .findByUserID(
+                 email,
+                 pass
+             )
+         if (getUserId != null) {
+             if (email == getUserId.emailId && pass == getUserId.password) {
+                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                 intent.putExtra("userId",email)
+                 startActivity(intent)
+                 userLoginEmail.text?.clear()
+                 userLoginPassword.text?.clear()
+             }
+         } else{
+             CustomDialogs.commonDialog(
+                 this@LoginActivity,
+                 getString(R.string.action_login_fail),
+                 getString(R.string.login_create_new_account_msg),
+                 getString(R.string.dialog_ok_button)
+             )
+         }
+     }
+
+     // Toast.makeText(applicationContext,"NoInternet Connection !!!",Toast.LENGTH_SHORT).show()
 
  }
+
 }

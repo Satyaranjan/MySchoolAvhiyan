@@ -1,11 +1,14 @@
 package com.satyasoft.myschoolavhiyan.activity
 
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -19,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.satyasoft.myschoolavhiyan.R
+import com.satyasoft.myschoolavhiyan.database.StudentDetails
 import com.satyasoft.myschoolavhiyan.databinding.ActivityMainBinding
 import java.util.*
 
@@ -28,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private var  auth: FirebaseAuth? = null
+    private lateinit var studentInfoList:  MutableList<StudentDetails>
     companion object {
           lateinit var userId :String
     }
@@ -51,7 +56,8 @@ class MainActivity : AppCompatActivity() {
         val imageView : ImageView? = headerView.findViewById(R.id.emailImageView)
         val userName :TextView? = headerView.findViewById(R.id.userNameInEmail)
         val emailId :TextView? = headerView.findViewById(R.id.emailIdUser)
-
+       // val myPics = FirebaseAuth.getInstance().currentUser!!.photoUrl
+       // imageView?.setImageURI(myPics)
         val user = Firebase.auth.currentUser
 
             user?.let {
@@ -81,17 +87,12 @@ class MainActivity : AppCompatActivity() {
             for (profile in it.providerData) {
                 // Id of the provider (ex: google.com)
                 val providerIds = profile.providerId
-
                 // UID specific to the provider
                 val uids = profile.uid
-
                 // Name, email address, and profile photo Url
                 val names = profile.displayName
                 val emails = profile.email
                 val photoUrls = profile.photoUrl
-                Log.d("User","User Details ------1---->>$names")
-                Log.d("User","User Details ------2---->>$emails")
-                Log.d("User","User Details -------3--->>$photoUrls")
 
             }
         }
@@ -116,5 +117,21 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.action_signOut -> {
+            val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
+            mAuth.signOut()
+            val intent = Intent(this@MainActivity, LoginActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            startActivity(intent)
+            finish()
+             true
+        }
+
+        else -> super.onOptionsItemSelected(item)
+    }
+
 
 }

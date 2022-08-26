@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">MoSchoolAbhiyan</string>
     <string name="action_settings">Settings</string>
-
+    <string name="action_signOut">SignOut</string>
+    <string name="action_search">Search</string>
     <string name="mo_school_abhiyan">Mo School Abhiyan</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
@@ -56,4 +57,5 @@
     <string name="loader_message">Registering User</string>
     <string name="unable_to_reset">Unable to reset your password,Please check your email Id</string>
     <string name="data_not_saved_fb">Data Fail To Save </string>
+    <string name="search_bar">Search</string>
 </resources>

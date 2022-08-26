@@ -6,18 +6,18 @@
     app:startDestination="@+id/nav_sltudent_details">
     <fragment
         android:id="@+id/nav_sltudent_details"
-        android:name="com.satyasoft.myschoolavhiyan.activity.ui.slideshow.SlideshowFragment"
+        android:name="com.satyasoft.myschoolavhiyan.activity.ui.studentDetails.StudentDetailInfoFragment"
         android:label="@string/menu_student_list"
         tools:layout="@layout/fragment_slideshow" />
     <fragment
         android:id="@+id/nav_registration"
-        android:name="com.satyasoft.myschoolavhiyan.activity.ui.restration.RegistrationFragment"
+        android:name="com.satyasoft.myschoolavhiyan.activity.ui.studentRestration.RegistrationFragment"
         android:label="@string/menu_student_registration"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.satyasoft.myschoolavhiyan.activity.ui.studentDetails.StudentGalleryFragment"
+        android:name="com.satyasoft.myschoolavhiyan.activity.ui.studentGallery.StudentGalleryFragment"
         android:label="@string/menu_photo_gallery"
         tools:layout="@layout/fragment_gallery" />
 

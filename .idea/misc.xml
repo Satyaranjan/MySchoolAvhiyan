@@ -3,8 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/android.xml" value="0.1155" />
         <entry key="app/src/main/res/drawable/color_cursor.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.213" />
+        <entry key="app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.213" />
+        <entry key="app/src/main/res/drawable/outline_logout_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/side_nav_bar.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/splash_background.xml" value="0.213" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.1" />
@@ -21,8 +26,11 @@
         <entry key="app/src/main/res/layout/student_list_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/student_list_items.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.24153846153846154" />
+        <entry key="app/src/main/res/menu/activity_student_menu.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/menu/main.xml" value="0.2" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.2" />
+        <entry key="app/src/main/res/xml/file_paths.xml" value="0.24427083333333333" />
+        <entry key="app/src/main/res/xml/filepaths.xml" value="0.24270833333333333" />
       </map>
     </option>
   </component>
