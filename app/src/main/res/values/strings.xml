@@ -15,6 +15,8 @@
     <string name="reset_password">Reset</string>
     <string name="welcome_msg">Welcome to Mo School Abhiyan .</string>
     <string name="copy_right"> Pranabandhu Bidyapitha, Shibapura, Bahanaga, Balasore, 756042.</string>
+    <string name="school_address"><b> Pranabandhu Bidyapitha, \n Shibapura, Bahanaga, \n Balasore, 756042.</b></string>
+    <string name="title_csv"><b>Mo School Abhiyan </b></string>
     <string name="already_have_an_account_login">Already have an account login</string>
     <string name="valid_mail_id">Please enter your valid mail id</string>
     <string name="login_success_msg">Login Successfully</string>
@@ -27,7 +29,7 @@
     <string name="dialog_cancel_button">Cancel</string>
     <string name="dialog_clear_button">Clear</string>
     <string name="dialog_no_button">No</string>
-    <string name="dialog_ok_button">Ok</string>
+    <string name="dialog_ok_button">OK</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

@@ -82,7 +82,7 @@ class PdfService {
     fun createUserTable(
         data: MutableList<StudentDetails>,
         paragraphList: List<String>,
-      //  onFinish: (file: File) -> Unit,
+        onFinish: (file: File) -> Unit,
         onError: (Exception) -> Unit
     ) {
         //Define the document
@@ -157,7 +157,7 @@ class PdfService {
         } catch (ex: Exception) {
             onError(ex)
         } finally {
-          //  onFinish(file)
+            onFinish(file)
         }
     }
 }

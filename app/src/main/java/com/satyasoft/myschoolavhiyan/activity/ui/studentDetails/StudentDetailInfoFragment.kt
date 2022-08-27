@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DatabaseReference
+import com.opencsv.CSVWriter
 import com.satyasoft.myschoolavhiyan.R
 import com.satyasoft.myschoolavhiyan.adapter.CustomAdapter
 import com.satyasoft.myschoolavhiyan.database.StudentDetails
@@ -33,6 +34,8 @@ import com.satyasoft.myschoolavhiyan.pdfService.FileHandler
 import com.satyasoft.myschoolavhiyan.pdfService.PdfService
 import com.satyasoft.myschoolavhiyan.utils.ResultOf
 import java.io.File
+import java.io.FileWriter
+import java.io.IOException
 
 
 class StudentDetailInfoFragment : Fragment() {
@@ -125,7 +128,8 @@ class StudentDetailInfoFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         R.id.action_settings -> {
-            createPdf(studentInfoLists)
+            //createPdf(studentInfoLists)
+            exportCSV(studentInfoLists)
             sharedBySocialMedia()
             true
         }
@@ -158,7 +162,7 @@ class StudentDetailInfoFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.N)
     private fun createPdf(studentInfoList: MutableList<StudentDetails>) {
         val onError: (Exception) -> Unit = { toastErrorMessage(it.message.toString()) }
-       // val onFinish: (File) -> Unit = { openFile(it) }
+        val onFinish: (File) -> Unit = { openFile(it) }
         val paragraphList = listOf(
             getString(R.string.copy_right)
         )
@@ -166,7 +170,7 @@ class StudentDetailInfoFragment : Fragment() {
         pdfService.createUserTable(
             data = studentInfoList,
             paragraphList = paragraphList,
-           // onFinish = onFinish,
+             onFinish = onFinish,
             onError = onError
         )
     }
@@ -217,9 +221,12 @@ class StudentDetailInfoFragment : Fragment() {
 
     private fun sharedBySocialMedia(){
 
+//        val file =
+//            File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+//                .toString() + "/" + "MoSchoolAbhiyan.pdf")
         val file =
             File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                .toString() + "/" + "MoSchoolAbhiyan.pdf")
+                .toString() + "/" + "/CSV/MoSchoolAbhiyan.csv")
         if (file.exists()) {
             val uri = getUriForFile(requireContext(), "com.satyasoft.myschoolavhiyan" + ".provider", file)
             val shareIntent = Intent(Intent.ACTION_SEND)
@@ -235,5 +242,43 @@ class StudentDetailInfoFragment : Fragment() {
         }
 
     }
+    private fun exportCSV(studentInfoList: MutableList<StudentDetails>){
+        val exportDir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            .toString() , "/CSV")// your path where you want save your file
+        if (!exportDir.exists()) {
+            exportDir.mkdirs()
+        }
 
+        try {
+            val mySchoolStudentDetails ="MoSchoolAbhiyan"
+            val file = File(exportDir, "$mySchoolStudentDetails.csv")
+            file.createNewFile()
+            val writer = CSVWriter(FileWriter(file))
+            val messageTitle = arrayOf(getString(R.string.title_csv))
+            writer.writeNext(messageTitle)
+            val schoolDetails = arrayOf(getString(R.string.school_address))
+            writer.writeNext(schoolDetails)
+
+            val header = arrayOf("Id", "Name", "EmailId","Phone No", "Year Of Pass","Amount")
+            writer.writeNext(header)
+
+            val data: MutableList<Array<String?>> = ArrayList()
+            for(index in 0 until studentInfoList.size){
+                arrayOf(studentInfoList[index].id.toString(),
+                    studentInfoList[index].name,
+                    studentInfoList[index].emailId,
+                    studentInfoList[index].phoneNumber,
+                    studentInfoList[index].yearOfPass,
+                    studentInfoList[index].amount).let {
+                    data.add(it)
+                }
+            }
+            writer.writeAll(data)
+            writer.close()
+        } catch (e: IOException) {
+            // TODO Auto-generated catch block
+            e.printStackTrace()
+        }
+
+    }
 }
