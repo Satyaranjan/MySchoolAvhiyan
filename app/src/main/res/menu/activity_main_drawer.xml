@@ -14,8 +14,14 @@
             android:title="@string/menu_student_registration" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/camera_enhance_outline"
+            android:icon="@drawable/image_gallery_24"
             android:title="@string/menu_photo_gallery" />
+
+        <item
+            android:id="@+id/nav_graph"
+            android:icon="@drawable/icons_graph_24"
+            android:title="@string/menu_student_graph" />
+
 
     </group>
 </menu>

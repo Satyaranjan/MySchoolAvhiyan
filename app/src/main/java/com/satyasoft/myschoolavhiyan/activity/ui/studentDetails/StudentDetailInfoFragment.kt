@@ -1,27 +1,23 @@
 package com.satyasoft.myschoolavhiyan.activity.ui.studentDetails
 
 import android.annotation.SuppressLint
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.os.StrictMode
 import android.view.*
 import android.widget.ProgressBar
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider.getUriForFile
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.database.DatabaseReference
 import com.opencsv.CSVWriter
 import com.satyasoft.myschoolavhiyan.R
 import com.satyasoft.myschoolavhiyan.adapter.CustomAdapter
@@ -30,26 +26,21 @@ import com.satyasoft.myschoolavhiyan.databinding.FragmentSlideshowBinding
 import com.satyasoft.myschoolavhiyan.pdfService.AppPermission
 import com.satyasoft.myschoolavhiyan.pdfService.AppPermission.Companion.permissionGranted
 import com.satyasoft.myschoolavhiyan.pdfService.AppPermission.Companion.requestPermission
-import com.satyasoft.myschoolavhiyan.pdfService.FileHandler
-import com.satyasoft.myschoolavhiyan.pdfService.PdfService
 import com.satyasoft.myschoolavhiyan.utils.ResultOf
 import java.io.File
 import java.io.FileWriter
 import java.io.IOException
+import java.util.*
 
 
 class StudentDetailInfoFragment : Fragment() {
 
     private var recyclerView: RecyclerView? = null
-    var coursesArrayList: ArrayList<String>? = null
-    var reference: DatabaseReference? = null
     private var _binding: FragmentSlideshowBinding? = null
-    private val studentDetails: ArrayList<StudentDetails?>? = null
-    private lateinit var studentInfoLists : MutableList<StudentDetails>
+    private  var studentInfoLists : MutableList<StudentDetails>? = null
     private val binding get() = _binding!!
     private var adapter: CustomAdapter? = null
     private lateinit var progressBar: ProgressBar
-    private var searchView: SearchView? = null
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
@@ -62,13 +53,13 @@ class StudentDetailInfoFragment : Fragment() {
             ViewModelProvider(this).get(StudentDetailInfoViewModel::class.java)
 
         _binding = FragmentSlideshowBinding.inflate(inflater, container, false)
-
         val root: View = binding.root
+      //  if (!activity?.let { permissionGranted(it) }!!) requestPermission(activity)
 
         setHasOptionsMenu(true)
         recyclerView = binding.studentList
-        recyclerView!!.setHasFixedSize(true);
-        recyclerView!!.layoutManager = LinearLayoutManager(activity);
+        recyclerView!!.setHasFixedSize(true)
+        recyclerView!!.layoutManager = LinearLayoutManager(activity)
         progressBar = binding.progressBarLarge
         activity?.let { slideshowViewModel.studentDetails(it) }
 
@@ -81,7 +72,7 @@ class StudentDetailInfoFragment : Fragment() {
                             if(response.size > 0) {
                                 populateAdapter(response)
                                 progressBar.visibility = View.GONE
-                                if (!activity?.let { permissionGranted(it) }!!) requestPermission(activity)
+
                             }else{
                                 progressBar.visibility = View.GONE
                                 Toast.makeText(requireContext(),"No Data Found !!!", Toast.LENGTH_LONG).show()
@@ -128,13 +119,13 @@ class StudentDetailInfoFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         R.id.action_settings -> {
-            //createPdf(studentInfoLists)
-            exportCSV(studentInfoLists)
-            sharedBySocialMedia()
+            if(studentInfoLists?.isNotEmpty() == true) {
+                studentInfoLists?.let { exportCSV(it) }
+                sharedBySocialMedia()
+            }
             true
         }
         R.id.action_search -> {
-
             true
         }
         else -> super.onOptionsItemSelected(item)
@@ -145,68 +136,31 @@ class StudentDetailInfoFragment : Fragment() {
         _binding = null
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String?>,
-        grantResults: IntArray,
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == AppPermission.REQUEST_PERMISSION) {
-            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                requestPermission(activity as FragmentActivity)
-                toastErrorMessage("Permission should be allowed")
-            }
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.N)
-    private fun createPdf(studentInfoList: MutableList<StudentDetails>) {
-        val onError: (Exception) -> Unit = { toastErrorMessage(it.message.toString()) }
-        val onFinish: (File) -> Unit = { openFile(it) }
-        val paragraphList = listOf(
-            getString(R.string.copy_right)
-        )
-        val pdfService = PdfService()
-        pdfService.createUserTable(
-            data = studentInfoList,
-            paragraphList = paragraphList,
-             onFinish = onFinish,
-            onError = onError
-        )
-    }
-  //  /storage/emulated/0/Download/MoSchoolAbhiyan.pdf
-    private fun openFile(file: File) {
-        val path = FileHandler().getPathFromUri(requireContext(), file.toUri())
-        val pdfFile = path?.let { File(it) }
-        val builder = StrictMode.VmPolicy.Builder()
-        StrictMode.setVmPolicy(builder.build())
-        builder.detectFileUriExposure()
-        val pdfIntent = Intent(Intent.ACTION_VIEW)
-        if (pdfFile != null) {
-            pdfIntent.setDataAndType(pdfFile.toUri(), "application/pdf")
-        }
-        pdfIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-        try {
-            startActivity(pdfIntent)
-        } catch (e: ActivityNotFoundException) {
-            toastErrorMessage("Can't read pdf file")
-        }
-
-    }
-
-    private fun toastErrorMessage(s: String) {
-        Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show()
-    }
+//    @Deprecated("Deprecated in Java")
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<String?>,
+//        grantResults: IntArray,
+//    ) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//        if (requestCode == AppPermission.REQUEST_PERMISSION) {
+//            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+//                requestPermission(activity as FragmentActivity)
+//                toastErrorMessage("Permission should be allowed")
+//            }
+//        }
+//    }
+//
+//    private fun toastErrorMessage(s: String) {
+//        Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show()
+//    }
 
     private fun filter(text: String) {
-        // creating a new array list to filter our data.
         val filterList: ArrayList<StudentDetails> = ArrayList()
-
-        // running a for loop to compare elements.
         if (studentInfoLists != null) {
-            for (item in studentInfoLists) {
+            for (item in studentInfoLists!!) {
                 if (item != null) {
-                    if (item.yearOfPass?.toLowerCase()?.contains(text.toLowerCase()) == true) {
+                    if (item.yearOfPass?.toLowerCase(Locale.ROOT)?.contains(text.lowercase(Locale.ROOT)) == true) {
                         filterList.add(item)
                     }
                 }
@@ -220,10 +174,6 @@ class StudentDetailInfoFragment : Fragment() {
     }
 
     private fun sharedBySocialMedia(){
-
-//        val file =
-//            File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-//                .toString() + "/" + "MoSchoolAbhiyan.pdf")
         val file =
             File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
                 .toString() + "/" + "/CSV/MoSchoolAbhiyan.csv")
@@ -234,8 +184,8 @@ class StudentDetailInfoFragment : Fragment() {
             shareIntent.setDataAndType(uri,"text/html")
             shareIntent.setDataAndType(uri,"message/rfc822")
             shareIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("satya.igu@gmail.com"))
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Mo School Abhiyan")
-            shareIntent.putExtra(Intent.EXTRA_TEXT, "Thanks your support for Mo School Abhiyan \n \n  Regards, \n \n H.M PBBP,Shibapura")
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.title_csv))
+            shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.gmail_message))
             shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
             shareIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_GRANT_READ_URI_PERMISSION
             requireContext().startActivity(shareIntent)
@@ -243,42 +193,43 @@ class StudentDetailInfoFragment : Fragment() {
 
     }
     private fun exportCSV(studentInfoList: MutableList<StudentDetails>){
-        val exportDir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-            .toString() , "/CSV")// your path where you want save your file
-        if (!exportDir.exists()) {
-            exportDir.mkdirs()
-        }
-
-        try {
-            val mySchoolStudentDetails ="MoSchoolAbhiyan"
-            val file = File(exportDir, "$mySchoolStudentDetails.csv")
-            file.createNewFile()
-            val writer = CSVWriter(FileWriter(file))
-            val messageTitle = arrayOf(getString(R.string.title_csv))
-            writer.writeNext(messageTitle)
-            val schoolDetails = arrayOf(getString(R.string.school_address))
-            writer.writeNext(schoolDetails)
-
-            val header = arrayOf("Id", "Name", "EmailId","Phone No", "Year Of Pass","Amount")
-            writer.writeNext(header)
-
-            val data: MutableList<Array<String?>> = ArrayList()
-            for(index in 0 until studentInfoList.size){
-                arrayOf(studentInfoList[index].id.toString(),
-                    studentInfoList[index].name,
-                    studentInfoList[index].emailId,
-                    studentInfoList[index].phoneNumber,
-                    studentInfoList[index].yearOfPass,
-                    studentInfoList[index].amount).let {
-                    data.add(it)
-                }
+        if(studentInfoList.isNotEmpty()) {
+            val exportDir =
+                File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                    .toString(), "/CSV")// your path where you want save your file
+            if (!exportDir.exists()) {
+                exportDir.mkdirs()
             }
-            writer.writeAll(data)
-            writer.close()
-        } catch (e: IOException) {
-            // TODO Auto-generated catch block
-            e.printStackTrace()
-        }
 
+            try {
+                val mySchoolStudentDetails = "MoSchoolAbhiyan"
+                val file = File(exportDir, "$mySchoolStudentDetails.csv")
+                file.createNewFile()
+                val writer = CSVWriter(FileWriter(file))
+                val messageTitle = arrayOf(getString(R.string.title_csv))
+                writer.writeNext(messageTitle)
+                val schoolDetails = arrayOf(getString(R.string.school_address))
+                writer.writeNext(schoolDetails)
+
+                val header = arrayOf("Id", "Name", "EmailId", "Phone No", "Year Of Pass", "Amount")
+                writer.writeNext(header)
+
+                val data: MutableList<Array<String?>> = ArrayList()
+                for (index in 0 until studentInfoList.size) {
+                    arrayOf(studentInfoList[index].id.toString(),
+                        studentInfoList[index].name,
+                        studentInfoList[index].emailId,
+                        studentInfoList[index].phoneNumber,
+                        studentInfoList[index].yearOfPass,
+                        studentInfoList[index].amount).let {
+                        data.add(it)
+                    }
+                }
+                writer.writeAll(data)
+                writer.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
     }
 }

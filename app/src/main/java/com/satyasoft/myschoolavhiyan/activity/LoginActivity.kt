@@ -1,17 +1,23 @@
 package com.satyasoft.myschoolavhiyan.activity
 
+import android.Manifest
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.provider.Settings
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
-import com.itextpdf.text.pdf.PdfReader
-import com.itextpdf.text.pdf.parser.PdfTextExtractor
 import com.opencsv.CSVReader
 import com.satyasoft.myschoolavhiyan.database.SchoolMasterDatabase
 import com.satyasoft.myschoolavhiyan.database.StudentDetails
@@ -29,12 +35,27 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var signUp : TextView
     private lateinit var loginButton: Button
     private lateinit var progressBar: ProgressBar
-    private lateinit var studentInfoLists : MutableList<StudentDetails>
+    private lateinit var  preferences: SharedPreferences
+    private lateinit var editor : SharedPreferences.Editor
+    private val STORAGE_PERMISSION_CODE = 100
     // Creating firebaseAuth object
     private lateinit var auth: FirebaseAuth
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.satyasoft.myschoolavhiyan.R.layout.login_activity)
+
+        ActivityCompat.requestPermissions(this@LoginActivity, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.MANAGE_EXTERNAL_STORAGE), 1)
+
+            if (!Environment.isExternalStorageManager()){
+                val intent = Intent()
+                intent.action = Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION
+                val uri = Uri.fromParts("package", this.packageName, null)
+                intent.data = uri
+                startActivity(intent)
+            }
+
 
         userLoginEmail = findViewById(com.satyasoft.myschoolavhiyan.R.id.userEmail)
         userLoginPassword = findViewById(com.satyasoft.myschoolavhiyan.R.id.userPassword)
@@ -58,15 +79,14 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         loginButton.setOnClickListener {
+            val getUserId = SchoolMasterDatabase.getSchoolMasterDataBase(this@LoginActivity)
+                .studentRegistrationDAO().getAllStudentRecord()
+            if(getUserId.isEmpty()){
+                importCSV()
+            }
            userLogin()
-           readPdfData()
-            importCSV()
         }
-        val getUserId = SchoolMasterDatabase.getSchoolMasterDataBase(this@LoginActivity)
-            .studentRegistrationDAO().getAllStudentRecord()
-        if(getUserId.isEmpty()){
-          //  importCSV()
-        }
+
     }
 
     private fun  userLogin() {
@@ -89,7 +109,7 @@ class LoginActivity : AppCompatActivity() {
     private fun loginInFireBase(email :String, pass:String){
         progressBar.visibility = View.VISIBLE
 
-        auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(this) {
+        auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(this) { it ->
             if (it.isSuccessful) {
                 progressBar.visibility = View.GONE
                 val intent = Intent(this, MainActivity::class.java)
@@ -97,7 +117,12 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
                 userLoginEmail.text?.clear()
                 userLoginPassword.text?.clear()
+                this.getSharedPreferences("Login", Context.MODE_PRIVATE).also { preferences = it }
+                editor = preferences.edit()
+                editor.putBoolean("isUserLogin", true)
+                editor.commit()
             } else {
+                progressBar.visibility = View.GONE
                 CustomDialogs.commonDialog(
                     this@LoginActivity,
                     getString(com.satyasoft.myschoolavhiyan.R.string.action_login_fail),
@@ -108,23 +133,30 @@ class LoginActivity : AppCompatActivity() {
         }
     }
  private fun loginInRoomDataBase(email :String, pass:String) {
+     progressBar.visibility = View.VISIBLE
+     val getUserId = SchoolMasterDatabase.getSchoolMasterDataBase(this@LoginActivity)
+         .staffRegistrationDAO()
+         .findByUserID(
+             email,
+             pass
+         )
      run {
 
-         val getUserId = SchoolMasterDatabase.getSchoolMasterDataBase(this@LoginActivity)
-             .staffRegistrationDAO()
-             .findByUserID(
-                 email,
-                 pass
-             )
          if (getUserId != null) {
              if (email == getUserId.emailId && pass == getUserId.password) {
+                 progressBar.visibility = View.GONE
                  val intent = Intent(this@LoginActivity, MainActivity::class.java)
                  intent.putExtra("userId", email)
                  startActivity(intent)
                  userLoginEmail.text?.clear()
                  userLoginPassword.text?.clear()
+                 this.getSharedPreferences("Login", Context.MODE_PRIVATE).also { preferences = it }
+                 editor = preferences.edit()
+                 editor.putBoolean("isUserLogin", true)
+                 editor.commit()
              }
          } else {
+             progressBar.visibility = View.GONE
              CustomDialogs.commonDialog(
                  this@LoginActivity,
                  getString(com.satyasoft.myschoolavhiyan.R.string.action_login_fail),
@@ -134,37 +166,8 @@ class LoginActivity : AppCompatActivity() {
          }
      }
  }
- private fun readPdfData(){
-     val reader: PdfReader
-     var extractedText = ""
-     val myData : ArrayList<String> = ArrayList()
-     try {
-         val file =
-             File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                 .toString() + "/" + "MoSchoolAbhiyan.pdf")
-         reader = PdfReader(file.toString())
 
-          val n = reader.numberOfPages
-         for (i in 0 until n) {
-             """$extractedText${PdfTextExtractor.getTextFromPage(reader, i + 1).trim { it <= ' ' }} """.trimIndent()
-                 .also { extractedText = it }
-         }
-         // pageNumber = 1
-        // val textFromPage = PdfTextExtractor.getTextFromPage(reader, 2)
-         myData.add(extractedText)
-         val parts = extractedText?.split(" ")?.toTypedArray()
-         val ssdd =  parts?.get(20).toString()
-         println("print ----$ssdd")
-         println(extractedText)
-         reader.close()
-
-
-     } catch (e: IOException) {
-         e.printStackTrace()
-     }
- }
     private fun importCSV(){
-
         try {
             val file =
                 File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
@@ -173,7 +176,7 @@ class LoginActivity : AppCompatActivity() {
                 val fileReader = FileReader(file)
                 val reader = CSVReader(fileReader)
                  reader.skip(3)
-                var record: Array<String>? = null
+                var record: Array<String>?
                 var mId: String
                 var mName: String
                 var mEmail: String
@@ -187,7 +190,7 @@ class LoginActivity : AppCompatActivity() {
                     mPhoneNo = record!![3]
                     mYearOfPass = record!![4]
                     mAmount = record!![5]
-                    this@LoginActivity?.let { it1 ->
+                    this@LoginActivity.let { it1 ->
                         SchoolMasterDatabase.getSchoolMasterDataBase(it1)
                             .studentRegistrationDAO().insertAllStudentRecord(
                                 StudentDetails(
@@ -201,4 +204,5 @@ class LoginActivity : AppCompatActivity() {
             e.printStackTrace()
         }
     }
+
 }

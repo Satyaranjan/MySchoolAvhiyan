@@ -21,5 +21,11 @@
         android:label="@string/menu_photo_gallery"
         tools:layout="@layout/fragment_gallery" />
 
+    <fragment
+        android:id="@+id/nav_graph"
+        android:name="com.satyasoft.myschoolavhiyan.activity.ui.graphDetails.StudentDetailsInGraph"
+        android:label="@string/menu_student_graph"
+        tools:layout="@layout/fragment_graph" />
+
 
 </navigation>

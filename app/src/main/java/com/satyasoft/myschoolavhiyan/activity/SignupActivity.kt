@@ -18,6 +18,7 @@ import com.satyasoft.myschoolavhiyan.utils.NetworkConnectionStatus
 
 
 class SignupActivity : AppCompatActivity() {
+
     private lateinit var userEmail: TextInputEditText
     private lateinit var userConfirmPassword: TextInputEditText
     private lateinit var userPassword: TextInputEditText
@@ -26,7 +27,6 @@ class SignupActivity : AppCompatActivity() {
     // create Firebase authentication object
     private lateinit var auth: FirebaseAuth
     private lateinit var progressBar: ProgressBar
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,10 +73,7 @@ class SignupActivity : AppCompatActivity() {
                 .show()
             return
         }
-        // If all credential are correct
-        // We call createUserWithEmailAndPassword
-        // using auth object and pass the
-        // email and pass in it.
+
       //  progressBar.visibility = View.VISIBLE
 
         if (NetworkConnectionStatus.checkConnection(this@SignupActivity)) {

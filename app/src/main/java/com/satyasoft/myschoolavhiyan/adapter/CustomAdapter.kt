@@ -15,7 +15,6 @@ import com.satyasoft.myschoolavhiyan.database.StudentDetails as StudentDetails
 open class CustomAdapter(private var studentList: MutableList<StudentDetails>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>(){
     lateinit var clickListener: ClickListener
-    private var movieListFiltered: MutableList<StudentDetails>? = null
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -27,23 +26,16 @@ open class CustomAdapter(private var studentList: MutableList<StudentDetails>) :
     // binds the list items to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val studentDetails = studentList[position]
-        if (studentDetails != null) {
-            holder.name.text = studentDetails.name
-            holder.year.text = studentDetails.yearOfPass
-            holder.mobile.text = studentDetails.phoneNumber
-            holder.amount.text = studentDetails.amount
-            holder.email.text = studentDetails.emailId
-        }
+        holder.name.text = studentDetails.name
+        holder.year.text = studentDetails.yearOfPass
+        holder.mobile.text = studentDetails.phoneNumber
+        holder.amount.text = studentDetails.amount
+        holder.email.text = studentDetails.emailId
 
     }
 
     override fun getItemCount(): Int {
         return studentList.size
-    }
-    //Sets Data
-    fun setData(studentInfoList:  MutableList<StudentDetails>): MutableList<StudentDetails> {
-        this.studentList = studentInfoList.toMutableList()
-      return studentInfoList
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -51,10 +43,6 @@ open class CustomAdapter(private var studentList: MutableList<StudentDetails>) :
         studentList = filterList
         notifyDataSetChanged()
     }
-
-//    fun setInterface(clickListener: FragmentActivity?){
-//        this.clickListener = clickListener
-//    }
 
     // Holds the views for adding it to image and text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {

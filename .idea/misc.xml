@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable/android.xml" value="0.1155" />
         <entry key="app/src/main/res/drawable/color_cursor.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/cursor_color.xml" value="0.213" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.213" />
         <entry key="app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.213" />
         <entry key="app/src/main/res/drawable/outline_logout_24.xml" value="0.1" />
@@ -17,14 +18,19 @@
         <entry key="app/src/main/res/layout/forgot_password_activity.xml" value="0.10729166666666666" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.10729166666666666" />
         <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.19610507246376813" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/fragment_graph.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/gallery_card_items.xml" value="0.2453125" />
         <entry key="app/src/main/res/layout/login_activity.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/signup_activity.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/splash_activity.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/student_list_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/student_list_items.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/tooltip.xml" value="0.24427083333333333" />
+        <entry key="app/src/main/res/layout/upload_images_activity.xml" value="0.24427083333333333" />
+        <entry key="app/src/main/res/menu-v26/main.xml" value="0.24427083333333333" />
         <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.24153846153846154" />
         <entry key="app/src/main/res/menu/activity_student_menu.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/menu/main.xml" value="0.2" />

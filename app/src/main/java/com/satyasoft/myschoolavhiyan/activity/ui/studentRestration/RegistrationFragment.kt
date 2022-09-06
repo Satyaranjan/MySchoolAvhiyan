@@ -12,8 +12,11 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.satyasoft.myschoolavhiyan.R
@@ -23,6 +26,8 @@ import com.satyasoft.myschoolavhiyan.database.StudentDetails
 import com.satyasoft.myschoolavhiyan.databinding.FragmentHomeBinding
 import com.satyasoft.myschoolavhiyan.utils.CustomDialogs
 import com.satyasoft.myschoolavhiyan.utils.ResultOf
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class RegistrationFragment : Fragment() {
@@ -32,12 +37,12 @@ class RegistrationFragment : Fragment() {
     private var selectedImageUri: Uri? = null
     private val binding get() = _binding!!
      private  val studentIdDetails: ArrayList<StudentDetails?>? = null
+
      @SuppressLint("UseRequireInsteadOfGet")
     override fun onCreateView(
          inflater: LayoutInflater,
          container: ViewGroup?,
          savedInstanceState: Bundle?,
-
          ): View {
        val  homeViewModel =
             ViewModelProvider(this).get(RegistrationViewModel::class.java)
@@ -51,6 +56,7 @@ class RegistrationFragment : Fragment() {
         val  year = _binding!!.yearOfPass
         val  amount = _binding!!.amount
         val saveButton = _binding!!.save
+
 
         homeViewModel.saveResult.observe(viewLifecycleOwner) {result ->
             result?.let {
@@ -92,11 +98,18 @@ class RegistrationFragment : Fragment() {
                 val studentIdList = mutableListOf<StudentDetails>()
                 val getUserId = SchoolMasterDatabase.getSchoolMasterDataBase(requireContext()).studentRegistrationDAO().getAllStudentRecord()
                 studentIdList.clear()
-                var lastId : Int = 0
+                var lastId = 0
                 if (getUserId.isNotEmpty()) {
                     studentIdList.addAll(getUserId)
                     lastId = studentIdList.last().id
                 }
+
+                val calendar: Calendar = Calendar.getInstance()
+                val currYear: Int = calendar.get(Calendar.YEAR)
+                if(year.text.toString() == "-"){
+                    year.setText(resources.getString(R.string.donor), TextView.BufferType.EDITABLE)
+                }
+
                 val studentDetails = StudentDetails(lastId+1,name.text.toString(),empEmail.text.toString(),mobileNo.text.toString(),year.text.toString(), amount.text.toString())
                 homeViewModel.saveTaxDetails(MainActivity.userId,studentDetails)
                 activity?.let { it1 ->
@@ -111,11 +124,9 @@ class RegistrationFragment : Fragment() {
                         )
                 }
                 val recipient = empEmail.text.toString()
-                val subject = "Mo School Abhiyan"
-                val message = "Hi"+ " "+ name.text.toString() +" ,"+ "\n"+"\n" + "Thanks to support Mo School Abhiyan Program" +  "\n"+"\n" +
-                        "Regards" +","+ "\n"+"\n" + "H.M. PBBP, Shibapura"
+                val subject = getString(R.string.title_csv)
+                val message = "Hi"+ " "+ name.text.toString() +" ,"+ "\n"+"\n" + getString(R.string.gmail_message)
 
-                //method call for email intent with these inputs as parameters
                 sendEmail(recipient, subject, message)
                 sendSMS(mobileNo.text.toString(),message)
 
@@ -147,8 +158,7 @@ class RegistrationFragment : Fragment() {
             try {
                 val smsMgrVar = SmsManager.getDefault()
                 smsMgrVar.sendTextMessage(phoneNo, null, msg, null, null)
-                Toast.makeText(requireContext(), "Message Sent",
-                    Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Message Sent", Toast.LENGTH_LONG).show()
             } catch (ErrVar: Exception) {
                 Toast.makeText(requireContext(),
                     ErrVar.message.toString(),

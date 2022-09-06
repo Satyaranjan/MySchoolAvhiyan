@@ -11,7 +11,6 @@ class MoSchoolAbhiyanApp : Application() {
 
     companion object {
         private var instance: MoSchoolAbhiyanApp? = null
-
         fun applicationContext() : MoSchoolAbhiyanApp {
             return instance as MoSchoolAbhiyanApp
         }

@@ -4,7 +4,7 @@
     <item android:drawable="@color/app_background" />
     <item>
         <bitmap
-            android:gravity="center"
+            android:gravity="fill_vertical"
             android:src="@mipmap/splash_bg" />
     </item>
 </layer-list>
