@@ -13,6 +13,151 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../MoPathShala/app/src/main/AndroidManifest.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathShala/app/src/main/java/com/satyasoft/mopathshala/activity/StudentAdmissionActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/AndroidManifest.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/java/com/satyasoft/mopathashala/MainActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/java/com/satyasoft/mopathashala/activity/AccessAuthenticationMode.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/java/com/satyasoft/mopathashala/activity/AdmissionRegisterActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/java/com/satyasoft/mopathashala/activity/AttendanceRegisterActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/java/com/satyasoft/mopathashala/activity/ForgotPassword.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/java/com/satyasoft/mopathashala/activity/LoginActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/java/com/satyasoft/mopathashala/activity/view/OnSignedCaptureListener.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/java/com/satyasoft/mopathashala/activity/view/SignatureDialogFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/java/com/satyasoft/mopathashala/activity/view/SignatureView.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/java/com/satyasoft/mopathashala/activity/view/ViewCompat.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/java/com/satyasoft/mopathashala/activity/view/ViewTreeObserverCompat.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/java/com/satyasoft/mopathashala/adapter/AdmissionRegisterAdapter.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/java/com/satyasoft/mopathashala/adapter/StudentAdmissionRecordAdapter.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/java/com/satyasoft/mopathshala/activity/AccessAuthenticationMode.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/java/com/satyasoft/mopathshala/activity/AdmissionRegisterActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/java/com/satyasoft/mopathshala/activity/AttendanceRegisterActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/java/com/satyasoft/mopathshala/activity/ForgotPassword.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/java/com/satyasoft/mopathshala/activity/LoginActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/java/com/satyasoft/mopathshala/activity/view/OnSignedCaptureListener.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/java/com/satyasoft/mopathshala/activity/view/SignatureDialogFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/java/com/satyasoft/mopathshala/activity/view/SignatureView.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/java/com/satyasoft/mopathshala/activity/view/ViewCompat.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/java/com/satyasoft/mopathshala/activity/view/ViewTreeObserverCompat.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/app/src/main/java/com/satyasoft/mopathshala/adapter/StudentAdmissionRecordAdapter.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathashala/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../MoPathshala/app/build.gradle">
           <value>
             <set />
@@ -33,7 +178,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../MoPathshala/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathshala/gradle.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../MoPathshala/gradle/wrapper/gradle-wrapper.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/build/generated/source/kapt/debug/com/satyasoft/myschoolavhiyan/database/SchoolMasterDatabase_Impl.java">
           <value>
             <set />
           </value>
@@ -44,6 +209,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/build/tmp/kapt3/stubs/debug/com/satyasoft/myschoolavhiyan/database/StaffRegistrationDAO.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/build/tmp/kapt3/stubs/debug/com/satyasoft/myschoolavhiyan/database/StudentCollectionDetailDAO.java">
           <value>
             <set />
           </value>
@@ -229,6 +399,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/satyasoft/myschoolavhiyan/database/StaffRegistrationDAO.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/satyasoft/myschoolavhiyan/database/StudentCollectionDetailDAO.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/satyasoft/myschoolavhiyan/database/StudentCollectionDetails.kt">
           <value>
             <set />
           </value>
@@ -553,6 +733,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/lib/MPChartLib/src/main/java/com/github/mikephil/charting/charts/PieChart.java">
           <value>
             <set />
@@ -564,6 +749,21 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../TDM/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../mo_school_abhiyan/android/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../mo_school_abhiyan/android/local.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../smart_class/android/gradle/wrapper/gradle-wrapper.properties">
           <value>
             <set />
           </value>

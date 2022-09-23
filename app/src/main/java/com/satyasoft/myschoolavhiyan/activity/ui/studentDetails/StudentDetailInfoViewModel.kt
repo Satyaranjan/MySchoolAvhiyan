@@ -8,6 +8,7 @@ import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.satyasoft.myschoolavhiyan.database.SchoolMasterDatabase
+import com.satyasoft.myschoolavhiyan.database.StudentCollectionDetails
 import com.satyasoft.myschoolavhiyan.database.StudentDetails
 import com.satyasoft.myschoolavhiyan.utils.NetworkConnectionStatus
 import com.satyasoft.myschoolavhiyan.utils.ResultOf
@@ -34,12 +35,12 @@ class StudentDetailInfoViewModel : ViewModel( ),LifecycleObserver {
 
     }
     private val _saveResult = MutableLiveData<ResultOf<String>>()
-    private val _taxInfoMutableLiveDataList = MutableLiveData<ResultOf<MutableList<StudentDetails>>>()
-    val taxInfoMutableLiveDataList: LiveData<ResultOf<MutableList<StudentDetails>>> = _taxInfoMutableLiveDataList
+    private val _taxInfoMutableLiveDataList = MutableLiveData<ResultOf<MutableList<StudentCollectionDetails>>>()
+    val taxInfoMutableLiveDataList: LiveData<ResultOf<MutableList<StudentCollectionDetails>>> = _taxInfoMutableLiveDataList
 
     fun studentDetails(context:Context) {
         loading.postValue(true)
-        val studentInfoList = mutableListOf<StudentDetails>()
+        val studentInfoList = mutableListOf<StudentCollectionDetails>()
           viewModelScope.launch(Dispatchers.IO) {
             val errorCode = -1
             try {
@@ -49,7 +50,7 @@ class StudentDetailInfoViewModel : ViewModel( ),LifecycleObserver {
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
                             for (postSnapshot in dataSnapshot.children) {
                                 val studentInfo =
-                                    postSnapshot.getValue(StudentDetails::class.java)
+                                    postSnapshot.getValue(StudentCollectionDetails::class.java)
                                 if (studentInfo != null) {
                                     studentInfoList.add(studentInfo)
                                 }
@@ -71,7 +72,7 @@ class StudentDetailInfoViewModel : ViewModel( ),LifecycleObserver {
                 }else{
                     viewModelScope.launch(Dispatchers.IO) {
                         val getUserId = SchoolMasterDatabase.getSchoolMasterDataBase(context)
-                            .studentRegistrationDAO().getAllStudentRecord()
+                            .studentCollectionRegistrationDAO().getAllStudentCollectionRecord()
                         studentInfoList.clear()
                         if (getUserId.isNotEmpty()) {
                             studentInfoList.addAll(getUserId)

@@ -1,3 +1,3 @@
 package com.satyasoft.myschoolavhiyan.database
 
-data class AccountDetails(val YearOfPass : Int? , val amount : Long?)
+data class AccountDetails(val BATCH : Int? , val AMOUNT : Long?)

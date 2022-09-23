@@ -26,7 +26,7 @@
             android:layout_marginEnd="5dp"
             android:orientation="horizontal">
             <LinearLayout
-                android:layout_width="80dp"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <TextView
@@ -41,18 +41,6 @@
                     android:textSize="20sp">
                 </TextView>
                 <TextView
-                    android:id="@+id/email_one"
-                    android:text="@string/list_header_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:gravity="center"
-                    android:fontFamily="@font/font_opensans_light"
-                    android:textColor="@color/white"
-                    android:textSize="20sp">
-                </TextView>
-
-                <TextView
                     android:id="@+id/mobileNo_one"
                     android:text="@string/list_header_phone"
                     android:layout_width="wrap_content"
@@ -66,6 +54,19 @@
                 </TextView>
 
                 <TextView
+                    android:id="@+id/email_one"
+                    android:text="@string/list_header_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:gravity="center"
+                    android:fontFamily="@font/font_opensans_light"
+                    android:textColor="@color/white"
+                    android:textSize="20sp">
+                </TextView>
+
+
+                <TextView
                     android:id="@+id/year_one"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -76,6 +77,28 @@
                     android:textColor="@color/white"
                     android:textSize="20sp">
 
+                </TextView>
+                <TextView
+                    android:id="@+id/paymentMode_one"
+                    android:text="@string/list_header_payment_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:gravity="center"
+                    android:fontFamily="@font/font_opensans_light"
+                    android:textColor="@color/white"
+                    android:textSize="20sp">
+                </TextView>
+                <TextView
+                    android:id="@+id/paymentStatus_one"
+                    android:text="@string/list_header_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:gravity="center"
+                    android:fontFamily="@font/font_opensans_light"
+                    android:textColor="@color/white"
+                    android:textSize="20sp">
                 </TextView>
 
                 <TextView
@@ -109,22 +132,21 @@
                     android:textColor="@color/white"
                     android:textSize="20sp">
                 </TextView>
-
-                <TextView
-                    android:id="@+id/email"
-                    android:text="@string/list_header_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:gravity="center"
-                    android:fontFamily="@font/font_opensans_light"
-                    android:textColor="@color/white"
-                    android:textSize="20sp">
-                </TextView>
-
                 <TextView
                     android:id="@+id/mobileNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_opensans_light"
+                    android:gravity="center"
+                    android:singleLine="true"
                     android:text="@string/list_header_phone"
+                    android:textColor="@color/white"
+                    android:textSize="20sp">
+
+                </TextView>
+                <TextView
+                    android:id="@+id/date"
+                    android:text="@string/list_header_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
@@ -145,7 +167,28 @@
                     android:textColor="@color/white"
                     android:textSize="20sp">
                 </TextView>
-
+                <TextView
+                    android:id="@+id/paymentMode"
+                    android:text="@string/list_header_payment_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:gravity="center"
+                    android:fontFamily="@font/font_opensans_light"
+                    android:textColor="@color/white"
+                    android:textSize="20sp">
+                </TextView>
+                <TextView
+                    android:id="@+id/paymentStatus"
+                    android:text="@string/list_header_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:gravity="center"
+                    android:fontFamily="@font/font_opensans_light"
+                    android:textColor="@color/white"
+                    android:textSize="20sp">
+                </TextView>
                 <TextView
                     android:id="@+id/amount"
                     android:text="@string/list_header_amount"

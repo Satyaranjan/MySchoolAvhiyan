@@ -51,9 +51,13 @@
 
     <string name="list_header_name">Name</string>
     <string name="list_header_email">Email</string>
-    <string name="list_header_year">Pass Yr.</string>
+    <string name="list_header_year">Batch</string>
     <string name="list_header_phone">Phone</string>
     <string name="list_header_amount">Amount</string>
+    <string name="list_header_date">Date</string>
+    <string name="list_header_payment_mode"> Mode</string>
+    <string name="list_header_status"> Status</string>
+
     <string name="donor">Donor</string>
     <string name="signup_me">Signup</string>
     <string name="data_saved">Registration Done Successfully</string>

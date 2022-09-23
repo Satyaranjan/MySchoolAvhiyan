@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.satyasoft.myschoolavhiyan.R
+import com.satyasoft.myschoolavhiyan.database.StudentCollectionDetails
 import com.satyasoft.myschoolavhiyan.interfaces.ClickListener
 import java.util.*
 import com.satyasoft.myschoolavhiyan.database.StudentDetails as StudentDetails
 
 
-open class CustomAdapter(private var studentList: MutableList<StudentDetails>) :
+open class CustomAdapter(private var studentList: MutableList<StudentCollectionDetails>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>(){
     lateinit var clickListener: ClickListener
     // create new views
@@ -27,10 +28,12 @@ open class CustomAdapter(private var studentList: MutableList<StudentDetails>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val studentDetails = studentList[position]
         holder.name.text = studentDetails.name
-        holder.year.text = studentDetails.yearOfPass
-        holder.mobile.text = studentDetails.phoneNumber
+        holder.year.text = studentDetails.batch
+        holder.mobile.text = studentDetails.contactNo
         holder.amount.text = studentDetails.amount
-        holder.email.text = studentDetails.emailId
+        holder.date.text = studentDetails.date
+        holder.paymentMode.text = studentDetails.paymentMethod
+        holder.paymentStatus.text = studentDetails.accountStatus
 
     }
 
@@ -39,7 +42,7 @@ open class CustomAdapter(private var studentList: MutableList<StudentDetails>) :
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun filterList(filterList: ArrayList<StudentDetails>) {
+    fun filterList(filterList: ArrayList<StudentCollectionDetails>) {
         studentList = filterList
         notifyDataSetChanged()
     }
@@ -51,7 +54,9 @@ open class CustomAdapter(private var studentList: MutableList<StudentDetails>) :
         val year: TextView = itemView.findViewById(R.id.year)
         val mobile: TextView = itemView.findViewById(R.id.mobileNo)
         val amount: TextView = itemView.findViewById(R.id.amount)
-        val email: TextView = itemView.findViewById(R.id.email)
+        val date: TextView = itemView.findViewById(R.id.date)
+        val paymentMode: TextView = itemView.findViewById(R.id.paymentMode)
+        val paymentStatus: TextView = itemView.findViewById(R.id.paymentStatus)
 
     }
 }

@@ -1,10 +1,12 @@
 package com.satyasoft.myschoolavhiyan.activity.ui.graphDetails
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
@@ -15,19 +17,21 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.satyasoft.myschoolavhiyan.R
 import com.satyasoft.myschoolavhiyan.database.AccountDetails
 import com.satyasoft.myschoolavhiyan.database.SchoolMasterDatabase
-import com.satyasoft.myschoolavhiyan.database.StudentDetails
+import com.satyasoft.myschoolavhiyan.database.StudentCollectionDetails
 
 
 class StudentDetailsInGraph : Fragment() {
 
     private var years = mutableListOf<String>()
     var amount = mutableListOf<Float>()
-    private val studentInfoList = mutableListOf<StudentDetails>()
+    private val studentInfoList = mutableListOf<StudentCollectionDetails>()
     private val yearWiseCollection = mutableListOf<AccountDetails>()
     private var barData: BarData? =null
     lateinit var barDataSet: BarDataSet
     private lateinit var barChart: BarChart
+    private lateinit var totalAmount :TextView
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -36,10 +40,15 @@ class StudentDetailsInGraph : Fragment() {
        val view : View = inflater.inflate(R.layout.fragment_graph, container, false)
 
         barChart = view.findViewById(R.id.barChart)
+        totalAmount = view.findViewById(R.id.totalAmount)
+
+        val sumTotalAmount = SchoolMasterDatabase.getSchoolMasterDataBase(requireContext())
+           .studentCollectionRegistrationDAO().getTotalAmount()
+       val totalAccount : String = "Total Collection as on date---${sumTotalAmount.get(0).amount.toString()}"
+       totalAmount.text = totalAccount
 
         val getUserId = SchoolMasterDatabase.getSchoolMasterDataBase(requireContext())
-            .studentRegistrationDAO().getAllStudentRecord()
-
+            .studentCollectionRegistrationDAO().getAllStudentCollectionRecord()
 
         studentInfoList.clear()
         if (getUserId.isNotEmpty()) {
@@ -47,15 +56,15 @@ class StudentDetailsInGraph : Fragment() {
         }
 
         val accountDetails = SchoolMasterDatabase.getSchoolMasterDataBase(requireContext())
-            .studentRegistrationDAO().getAccountDetailYearWise()
+            .studentCollectionRegistrationDAO().getAccountDetailYearWise()
 
        if(accountDetails.isNotEmpty()){
             yearWiseCollection.addAll(accountDetails)
         }
 
         for (items in yearWiseCollection.indices){
-            yearWiseCollection[items].YearOfPass?.let { years.add(it.toString()) }
-            yearWiseCollection[items].amount?.let { amount.add(it.toFloat()) }
+            yearWiseCollection[items].BATCH?.let { years.add(it.toString()) }
+            yearWiseCollection[items].AMOUNT?.let { amount.add(it.toFloat()) }
        }
 
         populateBarChart()
@@ -67,7 +76,7 @@ class StudentDetailsInGraph : Fragment() {
         val ourBarEntries: ArrayList<BarEntry> = ArrayList()
 
         for ((i, _) in yearWiseCollection.withIndex()) {
-            val value = yearWiseCollection[i].amount?.toFloat()
+            val value = yearWiseCollection[i].AMOUNT?.toFloat()
             value?.let { BarEntry(i.toFloat(), it) }?.let { ourBarEntries.add(it) }
         }
 

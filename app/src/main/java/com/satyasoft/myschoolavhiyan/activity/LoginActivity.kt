@@ -20,6 +20,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.opencsv.CSVReader
 import com.satyasoft.myschoolavhiyan.database.SchoolMasterDatabase
+import com.satyasoft.myschoolavhiyan.database.StudentCollectionDetails
 import com.satyasoft.myschoolavhiyan.database.StudentDetails
 import com.satyasoft.myschoolavhiyan.utils.CustomDialogs
 import com.satyasoft.myschoolavhiyan.utils.NetworkConnectionStatus
@@ -83,6 +84,12 @@ class LoginActivity : AppCompatActivity() {
                 .studentRegistrationDAO().getAllStudentRecord()
             if(getUserId.isEmpty()){
                 importCSV()
+            }
+
+            val getStudentDetails = SchoolMasterDatabase.getSchoolMasterDataBase(this@LoginActivity)
+                .studentCollectionRegistrationDAO().getAllStudentCollectionRecord()
+            if(getStudentDetails.isEmpty()) {
+                importStudentCollectionCSV()
             }
            userLogin()
         }
@@ -168,6 +175,7 @@ class LoginActivity : AppCompatActivity() {
  }
 
     private fun importCSV(){
+
         try {
             val file =
                 File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
@@ -204,5 +212,56 @@ class LoginActivity : AppCompatActivity() {
             e.printStackTrace()
         }
     }
+
+    private fun importStudentCollectionCSV(){
+        try {
+            val file =
+                File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                    .toString() + "/" + "Mo School Abhiyan - Collection.csv")
+            if(file.exists()) {
+                val fileReader = FileReader(file)
+                val reader = CSVReader(fileReader)
+                reader.skip(2)
+                var record: Array<String>?
+                var mIds : String
+                var mNames: String
+                var mBatchs: String
+                var mAmounts: String
+                var mDate: String
+                var mPaymentMethod: String
+                var mMsgReceivedFrom: String
+                var mAccountStatus: String
+                var mContactNo: String
+                var mRemarks: String
+                var mExtra: String
+                while (reader.readNext().also { record = it } != null) {
+                    mIds = record!![0]
+                    mNames = record!![1]
+                    mBatchs = record!![2]
+                    mAmounts = record!![3]
+                    mDate = record!![4]
+                    mPaymentMethod = record!![5]
+                    mMsgReceivedFrom = record!![6]
+                    mAccountStatus = record!![7]
+                    mContactNo = record!![8]
+                    mRemarks = record!![9]
+                    mExtra = record!![10]
+                    this@LoginActivity.let { it2 ->
+                        SchoolMasterDatabase.getSchoolMasterDataBase(it2)
+                            .studentCollectionRegistrationDAO().insertAllStudentCollectionRecord(
+                                StudentCollectionDetails(
+                                    mIds.toInt(),mNames, mBatchs, mAmounts, mDate, mPaymentMethod,
+                                    mMsgReceivedFrom, mAccountStatus, mContactNo,mRemarks,mExtra
+                                )
+                            )
+                    }
+                }
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+
+
 
 }

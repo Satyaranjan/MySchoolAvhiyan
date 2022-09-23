@@ -6,11 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database( entities = [StaffRegistration::class,StudentDetails::class], version = 1,exportSchema = true)
+@Database( entities = [StaffRegistration::class,StudentDetails::class,StudentCollectionDetails::class], version = 1,exportSchema = true)
 abstract class SchoolMasterDatabase : RoomDatabase(){
     abstract fun staffRegistrationDAO() : StaffRegistrationDAO
 
     abstract fun studentRegistrationDAO() :StudentRegistrationDAO
+
+    abstract fun studentCollectionRegistrationDAO() :StudentCollectionDetailDAO
 
     companion object {
         @Volatile private var instance: SchoolMasterDatabase? = null

@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.opencsv.CSVWriter
 import com.satyasoft.myschoolavhiyan.R
 import com.satyasoft.myschoolavhiyan.adapter.CustomAdapter
+import com.satyasoft.myschoolavhiyan.database.StudentCollectionDetails
 import com.satyasoft.myschoolavhiyan.database.StudentDetails
 import com.satyasoft.myschoolavhiyan.databinding.FragmentSlideshowBinding
 import com.satyasoft.myschoolavhiyan.pdfService.AppPermission
@@ -37,7 +38,7 @@ class StudentDetailInfoFragment : Fragment() {
 
     private var recyclerView: RecyclerView? = null
     private var _binding: FragmentSlideshowBinding? = null
-    private  var studentInfoLists : MutableList<StudentDetails>? = null
+    private  var studentInfoLists : MutableList<StudentCollectionDetails>? = null
     private val binding get() = _binding!!
     private var adapter: CustomAdapter? = null
     private lateinit var progressBar: ProgressBar
@@ -91,7 +92,7 @@ class StudentDetailInfoFragment : Fragment() {
     }
     @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("NotifyDataSetChanged")
-    private fun populateAdapter(studentInfoList : MutableList<StudentDetails>){
+    private fun populateAdapter(studentInfoList : MutableList<StudentCollectionDetails>){
        adapter =  CustomAdapter(studentInfoList)
         recyclerView?.adapter = adapter
         adapter!!.notifyDataSetChanged()
@@ -156,11 +157,11 @@ class StudentDetailInfoFragment : Fragment() {
 //    }
 
     private fun filter(text: String) {
-        val filterList: ArrayList<StudentDetails> = ArrayList()
+        val filterList: ArrayList<StudentCollectionDetails> = ArrayList()
         if (studentInfoLists != null) {
             for (item in studentInfoLists!!) {
                 if (item != null) {
-                    if (item.yearOfPass?.toLowerCase(Locale.ROOT)?.contains(text.lowercase(Locale.ROOT)) == true) {
+                    if (item.batch?.toLowerCase(Locale.ROOT)?.contains(text.lowercase(Locale.ROOT)) == true) {
                         filterList.add(item)
                     }
                 }
@@ -192,7 +193,7 @@ class StudentDetailInfoFragment : Fragment() {
         }
 
     }
-    private fun exportCSV(studentInfoList: MutableList<StudentDetails>){
+    private fun exportCSV(studentInfoList: MutableList<StudentCollectionDetails>){
         if(studentInfoList.isNotEmpty()) {
             val exportDir =
                 File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
@@ -211,16 +212,16 @@ class StudentDetailInfoFragment : Fragment() {
                 val schoolDetails = arrayOf(getString(R.string.school_address))
                 writer.writeNext(schoolDetails)
 
-                val header = arrayOf("Id", "Name", "EmailId", "Phone No", "Year Of Pass", "Amount")
+                val header = arrayOf("Id", "NAME", "Date", "ContactNo", "BATCH", "AMOUNT")
                 writer.writeNext(header)
 
                 val data: MutableList<Array<String?>> = ArrayList()
                 for (index in 0 until studentInfoList.size) {
                     arrayOf(studentInfoList[index].id.toString(),
                         studentInfoList[index].name,
-                        studentInfoList[index].emailId,
-                        studentInfoList[index].phoneNumber,
-                        studentInfoList[index].yearOfPass,
+                        studentInfoList[index].date,
+                        studentInfoList[index].contactNo,
+                        studentInfoList[index].batch,
                         studentInfoList[index].amount).let {
                         data.add(it)
                     }
