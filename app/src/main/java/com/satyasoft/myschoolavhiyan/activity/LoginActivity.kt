@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.provider.ContactsContract
 import android.provider.Settings
 import android.view.View
 import android.widget.Button
@@ -83,13 +84,13 @@ class LoginActivity : AppCompatActivity() {
             val getUserId = SchoolMasterDatabase.getSchoolMasterDataBase(this@LoginActivity)
                 .studentRegistrationDAO().getAllStudentRecord()
             if(getUserId.isEmpty()){
-                importCSV()
+              //  importCSV()
             }
 
             val getStudentDetails = SchoolMasterDatabase.getSchoolMasterDataBase(this@LoginActivity)
                 .studentCollectionRegistrationDAO().getAllStudentCollectionRecord()
             if(getStudentDetails.isEmpty()) {
-                importStudentCollectionCSV()
+               importStudentCollectionCSV()
             }
            userLogin()
         }
@@ -177,6 +178,7 @@ class LoginActivity : AppCompatActivity() {
     private fun importCSV(){
 
         try {
+
             val file =
                 File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
                     .toString() + "/" + "/CSV/MoSchoolAbhiyan.csv")
@@ -215,13 +217,15 @@ class LoginActivity : AppCompatActivity() {
 
     private fun importStudentCollectionCSV(){
         try {
+
             val file =
                 File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                    .toString() + "/" + "Mo School Abhiyan - Collection.csv")
+                    .toString() + "/" + "/CSV/MoSchoolAbhiyan.csv")
             if(file.exists()) {
-                val fileReader = FileReader(file)
+
+                val  fileReader = FileReader(file)
                 val reader = CSVReader(fileReader)
-                reader.skip(2)
+                reader.skip(3)
                 var record: Array<String>?
                 var mIds : String
                 var mNames: String
@@ -232,8 +236,8 @@ class LoginActivity : AppCompatActivity() {
                 var mMsgReceivedFrom: String
                 var mAccountStatus: String
                 var mContactNo: String
+                var mEmail: String
                 var mRemarks: String
-                var mExtra: String
                 while (reader.readNext().also { record = it } != null) {
                     mIds = record!![0]
                     mNames = record!![1]
@@ -244,14 +248,14 @@ class LoginActivity : AppCompatActivity() {
                     mMsgReceivedFrom = record!![6]
                     mAccountStatus = record!![7]
                     mContactNo = record!![8]
-                    mRemarks = record!![9]
-                    mExtra = record!![10]
+                    mEmail = record!![9]
+                    mRemarks = record!![10]
                     this@LoginActivity.let { it2 ->
                         SchoolMasterDatabase.getSchoolMasterDataBase(it2)
                             .studentCollectionRegistrationDAO().insertAllStudentCollectionRecord(
                                 StudentCollectionDetails(
                                     mIds.toInt(),mNames, mBatchs, mAmounts, mDate, mPaymentMethod,
-                                    mMsgReceivedFrom, mAccountStatus, mContactNo,mRemarks,mExtra
+                                    mMsgReceivedFrom, mAccountStatus, mContactNo,mEmail,mRemarks
                                 )
                             )
                     }

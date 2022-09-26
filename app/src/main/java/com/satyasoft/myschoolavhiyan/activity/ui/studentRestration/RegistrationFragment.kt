@@ -22,8 +22,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.satyasoft.myschoolavhiyan.R
 import com.satyasoft.myschoolavhiyan.activity.MainActivity
 import com.satyasoft.myschoolavhiyan.database.SchoolMasterDatabase
+import com.satyasoft.myschoolavhiyan.database.StudentCollectionDetails
 import com.satyasoft.myschoolavhiyan.database.StudentDetails
 import com.satyasoft.myschoolavhiyan.databinding.FragmentHomeBinding
+import com.satyasoft.myschoolavhiyan.model.StudentCollectionDetailsData
 import com.satyasoft.myschoolavhiyan.utils.CustomDialogs
 import com.satyasoft.myschoolavhiyan.utils.ResultOf
 import java.util.*
@@ -33,10 +35,10 @@ import kotlin.collections.ArrayList
 class RegistrationFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-    private lateinit var studentDetails: StudentDetails
+    private lateinit var studentDetails: StudentCollectionDetails
     private var selectedImageUri: Uri? = null
     private val binding get() = _binding!!
-     private  val studentIdDetails: ArrayList<StudentDetails?>? = null
+     private  val studentIdDetails: ArrayList<StudentCollectionDetails?>? = null
 
      @SuppressLint("UseRequireInsteadOfGet")
     override fun onCreateView(
@@ -55,7 +57,11 @@ class RegistrationFragment : Fragment() {
         val  mobileNo = _binding!!.phoneNo
         val  year = _binding!!.yearOfPass
         val  amount = _binding!!.amount
-        val saveButton = _binding!!.save
+         val  date = _binding!!.dates
+         val  paymentMode = _binding!!.paymentMode
+         val  paymentStatus = _binding!!.paymentStatus
+         val  messageReceived = _binding!!.messageReceivedFrom
+         val saveButton = _binding!!.save
 
 
         homeViewModel.saveResult.observe(viewLifecycleOwner) {result ->
@@ -63,15 +69,18 @@ class RegistrationFragment : Fragment() {
                 when(it){
                     is ResultOf.Success ->{
                         if(it.value.equals("Data Saved Successfully",ignoreCase = true)){
-                           // Toast.makeText(requireContext(),"Tax Details Saved",Toast.LENGTH_LONG).show()
+
                             name.text?.clear()
                             empEmail.text?.clear()
-                            mobileNo.text?.clear()
                             year.text?.clear()
                             amount.text?.clear()
+                            date.text?.clear()
+                            paymentMode.text?.clear()
+                            paymentStatus.text?.clear()
+                            messageReceived.text?.clear()
+                            mobileNo.text?.clear()
 
                         }else{
-                           // println("Data failed to save")
                             CustomDialogs.commonDialog(
                                 activity,
                                 getString(R.string.loader_message),
@@ -91,12 +100,13 @@ class RegistrationFragment : Fragment() {
         }
 
         saveButton.setOnClickListener {
-            if(TextUtils.isEmpty(name.text.toString()) || TextUtils.isEmpty(empEmail.text.toString())||TextUtils.isEmpty(mobileNo.text.toString()) ||
-                TextUtils.isEmpty(year.text.toString()) || TextUtils.isEmpty(amount.text.toString())){
-                Toast.makeText(requireContext(),"Please Provide proper details for all fields",Toast.LENGTH_LONG).show()
+            if(TextUtils.isEmpty(name.text.toString()) ||TextUtils.isEmpty(year.text.toString())||TextUtils.isEmpty(amount.text.toString()) ||
+                TextUtils.isEmpty(date.text.toString()) || TextUtils.isEmpty(paymentMode.text.toString()) || TextUtils.isEmpty(paymentStatus.text.toString())
+                || TextUtils.isEmpty(messageReceived.text.toString()) || TextUtils.isEmpty(mobileNo.text.toString())){
+                Toast.makeText(requireContext(),"Please provide details for all fields",Toast.LENGTH_LONG).show()
             }else {
-                val studentIdList = mutableListOf<StudentDetails>()
-                val getUserId = SchoolMasterDatabase.getSchoolMasterDataBase(requireContext()).studentRegistrationDAO().getAllStudentRecord()
+                val studentIdList = mutableListOf<StudentCollectionDetails>()
+                val getUserId = SchoolMasterDatabase.getSchoolMasterDataBase(requireContext()).studentCollectionRegistrationDAO().getAllStudentCollectionRecord()
                 studentIdList.clear()
                 var lastId = 0
                 if (getUserId.isNotEmpty()) {
@@ -110,17 +120,32 @@ class RegistrationFragment : Fragment() {
                     year.setText(resources.getString(R.string.donor), TextView.BufferType.EDITABLE)
                 }
 
-                val studentDetails = StudentDetails(lastId+1,name.text.toString(),empEmail.text.toString(),mobileNo.text.toString(),year.text.toString(), amount.text.toString())
-                homeViewModel.saveTaxDetails(MainActivity.userId,studentDetails)
+                val studentDetails = StudentCollectionDetails(lastId+1,
+                    name.text.toString(),
+                    year.text.toString(),
+                    amount.text.toString(),
+                    date.text.toString(),
+                    paymentMode.text.toString(),
+                    messageReceived.text.toString(),
+                    paymentStatus.text.toString(),
+                    mobileNo.text.toString(),
+                    empEmail.text.toString(),"-")
+
+                homeViewModel.saveStudentCollectionsDetails(MainActivity.userId,studentDetails)
+
                 activity?.let { it1 ->
                     SchoolMasterDatabase.getSchoolMasterDataBase(it1)
-                        .studentRegistrationDAO().insertAllStudentRecord(
-                            StudentDetails(0,
+                        .studentCollectionRegistrationDAO().insertAllStudentCollectionRecord(
+                            StudentCollectionDetails(0,
                                 name.text.toString(),
-                                empEmail.text.toString(),
-                                mobileNo.text.toString(),
                                 year.text.toString(),
-                                amount.text.toString())
+                                amount.text.toString(),
+                                date.text.toString(),
+                                paymentMode.text.toString(),
+                                messageReceived.text.toString(),
+                                paymentStatus.text.toString(),
+                                mobileNo.text.toString(),
+                                empEmail.text.toString(),"-")
                         )
                 }
                 val recipient = empEmail.text.toString()

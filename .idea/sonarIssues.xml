@@ -308,6 +308,41 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/satyasoft/myschoolavhiyan/activity/ui/studentCollectionDetails/MainActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/satyasoft/myschoolavhiyan/activity/ui/studentCollectionDetails/MainActivityRepository.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/satyasoft/myschoolavhiyan/activity/ui/studentCollectionDetails/MainRepository.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/satyasoft/myschoolavhiyan/activity/ui/studentCollectionDetails/MainViewModel.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/satyasoft/myschoolavhiyan/activity/ui/studentCollectionDetails/MyViewModelFactory.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/satyasoft/myschoolavhiyan/activity/ui/studentCollectionDetails/StudentCollectionFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/satyasoft/myschoolavhiyan/activity/ui/studentCollectionDetails/StudentCollectionViewModel.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/satyasoft/myschoolavhiyan/activity/ui/studentDetails/SlideshowFragment.kt">
           <value>
             <set />
@@ -368,12 +403,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/satyasoft/myschoolavhiyan/activity/ui/studentRestration/RegistrationViewModel.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/satyasoft/myschoolavhiyan/adapter/CustomAdapter.kt">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/satyasoft/myschoolavhiyan/adapter/ImageAdapter.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/satyasoft/myschoolavhiyan/adapter/MovieAdapter.kt">
           <value>
             <set />
           </value>
@@ -433,6 +478,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/satyasoft/myschoolavhiyan/model/Movie.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/satyasoft/myschoolavhiyan/model/StudentCollectionDetailsData.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/satyasoft/myschoolavhiyan/pdfService/AppPermission.kt">
           <value>
             <set />
@@ -454,6 +509,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/satyasoft/myschoolavhiyan/pdfService/PdfService.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/satyasoft/myschoolavhiyan/retrofit/RetrofitService.kt">
           <value>
             <set />
           </value>
@@ -523,6 +583,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/satyasoft/myschoolavhiyan/utils/NetworkState.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/satyasoft/myschoolavhiyan/utils/NetworkStatusHelper.kt">
           <value>
             <set />
@@ -534,6 +599,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/satyasoft/myschoolavhiyan/utils/UserEmailFetcher.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/satyasoft/myschoolavhiyan/utils/ValidationUtil.kt">
           <value>
             <set />
           </value>
@@ -573,7 +643,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/adapter_movie.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/layout/app_bar_main.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/bar_chart_activity.xml">
           <value>
             <set />
           </value>
@@ -609,6 +689,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/layout/fragment_slideshow.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/fragment_student_collection.xml">
           <value>
             <set />
           </value>

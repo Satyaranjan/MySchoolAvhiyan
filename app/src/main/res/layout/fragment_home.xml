@@ -17,20 +17,26 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:src="@drawable/school_admission"
             />
+    <ScrollView
+        android:layout_below="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
 
         <LinearLayout
             android:id="@+id/centerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="10dp"
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -55,7 +61,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 app:boxBackgroundColor="@android:color/transparent"
                 android:background="@android:color/transparent"
                 app:boxStrokeColor = "@android:color/white"
@@ -79,7 +85,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 app:boxBackgroundColor="@android:color/transparent"
                 android:background="@android:color/transparent"
                 app:boxStrokeColor = "@android:color/white"
@@ -104,13 +110,13 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 app:boxBackgroundColor="@android:color/transparent"
                 android:background="@android:color/transparent"
                 app:boxStrokeColor = "@android:color/white"
                 style="@style/LoginTextInputLayoutStyle"
                 app:placeholderText="1994"
-                android:hint="@string/year">
+                android:hint="@string/list_header_year">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/yearOfPass"
@@ -145,10 +151,107 @@
                     android:textCursorDrawable="@drawable/color_cursor"
                     android:maxLines="1"
                     android:inputType="number"
+                    android:imeOptions="actionNext"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:boxBackgroundColor="@android:color/transparent"
+                android:background="@android:color/transparent"
+                app:boxStrokeColor = "@android:color/white"
+                style="@style/LoginTextInputLayoutStyle"
+                app:placeholderText="22/07/2022"
+                android:hint="@string/list_header_date">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/dates"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textCursorDrawable="@drawable/color_cursor"
+                    android:maxLines="1"
+                    android:inputType="date"
+                    android:imeOptions="actionNext"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:boxBackgroundColor="@android:color/transparent"
+                android:background="@android:color/transparent"
+                app:boxStrokeColor = "@android:color/white"
+                style="@style/LoginTextInputLayoutStyle"
+                app:placeholderText="Cheque"
+                android:hint="@string/payment_mode">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/paymentMode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textCursorDrawable="@drawable/color_cursor"
+                    android:maxLines="1"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:boxBackgroundColor="@android:color/transparent"
+                android:background="@android:color/transparent"
+                app:boxStrokeColor = "@android:color/white"
+                style="@style/LoginTextInputLayoutStyle"
+                app:placeholderText="Yes"
+                android:hint="@string/payment_status">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/paymentStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textCursorDrawable="@drawable/color_cursor"
+                    android:maxLines="1"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:boxBackgroundColor="@android:color/transparent"
+                android:background="@android:color/transparent"
+                app:boxStrokeColor = "@android:color/white"
+                style="@style/LoginTextInputLayoutStyle"
+                app:placeholderText="Self"
+                android:hint="@string/message_received_from">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/messageReceivedFrom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textCursorDrawable="@drawable/color_cursor"
+                    android:maxLines="1"
+                    android:inputType="text"
                     android:imeOptions="actionDone"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <Button
                 android:layout_width="wrap_content"
@@ -157,7 +260,7 @@
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="30dp"
                 android:padding="10dp"
                 android:text="@string/save"
                 android:textColor="@color/white"
@@ -168,8 +271,17 @@
                 app:strokeColor="@color/white"
                 app:strokeWidth="1dp" />
 
-        </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                >
 
+            </TextView>
+
+        </LinearLayout>
+    </ScrollView>
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

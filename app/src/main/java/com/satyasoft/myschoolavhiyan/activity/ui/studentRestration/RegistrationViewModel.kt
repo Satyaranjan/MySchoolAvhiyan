@@ -8,6 +8,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.satyasoft.myschoolavhiyan.database.StudentCollectionDetails
 import com.satyasoft.myschoolavhiyan.database.StudentDetails
 import com.satyasoft.myschoolavhiyan.utils.ResultOf
 import kotlinx.coroutines.Dispatchers
@@ -36,7 +37,7 @@ class RegistrationViewModel : ViewModel(),
     }
     private val _saveResult = MutableLiveData<ResultOf<String>>()
     val saveResult: LiveData<ResultOf<String>> = _saveResult
-    fun saveTaxDetails(userId: String,studentDetails: StudentDetails){
+    fun saveStudentCollectionsDetails(userId: String,studentDetails: StudentCollectionDetails){
         loading.postValue(true)
         viewModelScope.launch(Dispatchers.IO){
             val errorCode = -1

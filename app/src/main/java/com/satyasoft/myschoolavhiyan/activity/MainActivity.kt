@@ -73,9 +73,9 @@ class MainActivity : AppCompatActivity() {
                 // Name, email address, and profile photo Url
                 val name = user.displayName
                 val email = user.email
-               val photoUrl = auth!!.currentUser?.photoUrl?.toString()
-                Picasso.get().load(user.photoUrl)
-                    .into(imageView);
+//               val photoUrl = auth!!.currentUser?.photoUrl?.toString()
+//                Picasso.get().load(user.photoUrl)
+//                    .into(imageView);
 
                 // Check if user's email is verified
                 val emailVerified = user.isEmailVerified

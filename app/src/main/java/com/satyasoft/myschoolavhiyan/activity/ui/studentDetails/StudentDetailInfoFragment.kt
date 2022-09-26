@@ -1,5 +1,6 @@
 package com.satyasoft.myschoolavhiyan.activity.ui.studentDetails
 
+import android.accounts.Account
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -20,17 +21,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.opencsv.CSVWriter
 import com.satyasoft.myschoolavhiyan.R
+import com.satyasoft.myschoolavhiyan.activity.MainActivity
 import com.satyasoft.myschoolavhiyan.adapter.CustomAdapter
+import com.satyasoft.myschoolavhiyan.database.SchoolMasterDatabase
 import com.satyasoft.myschoolavhiyan.database.StudentCollectionDetails
 import com.satyasoft.myschoolavhiyan.database.StudentDetails
 import com.satyasoft.myschoolavhiyan.databinding.FragmentSlideshowBinding
 import com.satyasoft.myschoolavhiyan.pdfService.AppPermission
 import com.satyasoft.myschoolavhiyan.pdfService.AppPermission.Companion.permissionGranted
 import com.satyasoft.myschoolavhiyan.pdfService.AppPermission.Companion.requestPermission
+import com.satyasoft.myschoolavhiyan.utils.CustomDialogs
 import com.satyasoft.myschoolavhiyan.utils.ResultOf
 import java.io.File
 import java.io.FileWriter
 import java.io.IOException
+import java.lang.reflect.Method
 import java.util.*
 
 
@@ -42,7 +47,7 @@ class StudentDetailInfoFragment : Fragment() {
     private val binding get() = _binding!!
     private var adapter: CustomAdapter? = null
     private lateinit var progressBar: ProgressBar
-
+    var  studentDetails : StudentCollectionDetails? = null
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,7 +55,7 @@ class StudentDetailInfoFragment : Fragment() {
         savedInstanceState: Bundle?,
 
         ): View {
-        val slideshowViewModel =
+        val studentDetailViewModel =
             ViewModelProvider(this).get(StudentDetailInfoViewModel::class.java)
 
         _binding = FragmentSlideshowBinding.inflate(inflater, container, false)
@@ -62,10 +67,12 @@ class StudentDetailInfoFragment : Fragment() {
         recyclerView!!.setHasFixedSize(true)
         recyclerView!!.layoutManager = LinearLayoutManager(activity)
         progressBar = binding.progressBarLarge
-        activity?.let { slideshowViewModel.studentDetails(it) }
+        activity?.let { studentDetailViewModel.studentDetails(it) }
 
         progressBar.visibility = View.VISIBLE
-            slideshowViewModel.taxInfoMutableLiveDataList.observe(viewLifecycleOwner, Observer {result ->
+
+
+        studentDetailViewModel.taxInfoMutableLiveDataList.observe(viewLifecycleOwner, Observer {result ->
                 result?.let {
                     when(it){
                         is ResultOf.Success ->{
@@ -77,6 +84,30 @@ class StudentDetailInfoFragment : Fragment() {
                             }else{
                                 progressBar.visibility = View.GONE
                                 Toast.makeText(requireContext(),"No Data Found !!!", Toast.LENGTH_LONG).show()
+                                val studentInfoList = mutableListOf<StudentCollectionDetails>()
+                                val getUserId = SchoolMasterDatabase.getSchoolMasterDataBase(requireContext())
+                                    .studentCollectionRegistrationDAO().getAllStudentCollectionRecord()
+                                studentInfoList.clear()
+                                if (getUserId.isNotEmpty()) {
+                                    studentInfoList.addAll(getUserId)
+                                }
+
+                                for (index in 0 until studentInfoList.size) {
+                                    val studentDetail = StudentCollectionDetails(
+                                          studentInfoList[index].id,
+                                        studentInfoList[index].name,
+                                        studentInfoList[index].batch,
+                                        studentInfoList[index].amount,
+                                        studentInfoList[index].date,
+                                        studentInfoList[index].paymentMethod,
+                                        studentInfoList[index].msgReceivedFrom,
+                                        studentInfoList[index].accountStatus,
+                                        studentInfoList[index].contactNo,
+                                        studentInfoList[index].emailId,
+                                        studentInfoList[index].remarks)
+                                    studentDetailViewModel.saveStudentCollectionsDetails(MainActivity.userId,
+                                        studentDetail)
+                                }
 
                             }
                         }
@@ -86,7 +117,33 @@ class StudentDetailInfoFragment : Fragment() {
                         }
                     }
                 }
+
+            studentDetailViewModel.saveResult.observe(viewLifecycleOwner) {result ->
+                result?.let {
+                    when(it){
+                        is ResultOf.Success ->{
+                            if(it.value.equals("Data Saved Successfully",ignoreCase = true)){
+                                Toast.makeText(requireContext(),"Saved Successfully", Toast.LENGTH_LONG).show()
+                            }else{
+                                CustomDialogs.commonDialog(
+                                    activity,
+                                    getString(R.string.loader_message),
+                                    getString(R.string.data_not_saved_fb),
+                                    getString(R.string.dialog_ok_button)
+                                )
+
+                            }
+                        }
+                        is ResultOf.Failure -> {
+                            val failedMessage =  it.message ?: "Unknown Error"
+                            Toast.makeText(requireContext(),"Save failed $failedMessage", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+
+            }
             })
+
 
         return root
     }
@@ -98,12 +155,15 @@ class StudentDetailInfoFragment : Fragment() {
         adapter!!.notifyDataSetChanged()
         this.studentInfoLists = studentInfoList
     }
+
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.activity_student_menu, menu)
 
         val searchItem: MenuItem = menu.findItem(R.id.action_search)
         val searchView: SearchView = searchItem.actionView as SearchView
+        searchView.queryHint = "Please Enter Year";
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(text: String?): Boolean {
                 return false
@@ -161,14 +221,14 @@ class StudentDetailInfoFragment : Fragment() {
         if (studentInfoLists != null) {
             for (item in studentInfoLists!!) {
                 if (item != null) {
-                    if (item.batch?.toLowerCase(Locale.ROOT)?.contains(text.lowercase(Locale.ROOT)) == true) {
+                    if (item.batch?.toLowerCase(Locale.ROOT)?.contains(text.lowercase(Locale.ROOT)) == true || item.name?.toLowerCase(Locale.ROOT)?.contains(text.lowercase(Locale.ROOT)) == true) {
                         filterList.add(item)
                     }
                 }
             }
         }
         if (filterList.isEmpty()) {
-            Toast.makeText(requireContext(), "No Data Found..", Toast.LENGTH_SHORT).show()
+           // Toast.makeText(requireContext(), "No Data Found..", Toast.LENGTH_SHORT).show()
         } else {
             adapter?.filterList(filterList)
         }
@@ -212,17 +272,22 @@ class StudentDetailInfoFragment : Fragment() {
                 val schoolDetails = arrayOf(getString(R.string.school_address))
                 writer.writeNext(schoolDetails)
 
-                val header = arrayOf("Id", "NAME", "Date", "ContactNo", "BATCH", "AMOUNT")
+                val header = arrayOf("Id", "NAME", "BATCH",	"AMOUNT","DATE"	,"Payment Method","Msg Received From","Account Status","Contact No","Email","Remarks")
                 writer.writeNext(header)
 
                 val data: MutableList<Array<String?>> = ArrayList()
                 for (index in 0 until studentInfoList.size) {
                     arrayOf(studentInfoList[index].id.toString(),
                         studentInfoList[index].name,
-                        studentInfoList[index].date,
-                        studentInfoList[index].contactNo,
                         studentInfoList[index].batch,
-                        studentInfoList[index].amount).let {
+                        studentInfoList[index].amount,
+                        studentInfoList[index].date,
+                        studentInfoList[index].paymentMethod,
+                        studentInfoList[index].msgReceivedFrom,
+                        studentInfoList[index].accountStatus,
+                        studentInfoList[index].contactNo,
+                        studentInfoList[index].emailId,
+                        studentInfoList[index].remarks).let {
                         data.add(it)
                     }
                 }

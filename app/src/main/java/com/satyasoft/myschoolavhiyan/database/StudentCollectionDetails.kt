@@ -15,6 +15,6 @@ data class StudentCollectionDetails(
     @ColumnInfo(name = "Msg Received From") var msgReceivedFrom: String? = "",
     @ColumnInfo(name = "Account Status") var accountStatus: String? = "",
     @ColumnInfo(name = "Contact No") var contactNo: String? = "",
-    @ColumnInfo(name = "Remark") var remark: String? = "",
-    @ColumnInfo(name = "Extra") var extra: String? = "",
+    @ColumnInfo(name = "EmailId") var emailId: String? = "",
+    @ColumnInfo(name = "Remarks") var remarks: String? = "",
 )

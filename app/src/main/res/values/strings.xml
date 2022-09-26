@@ -57,7 +57,11 @@
     <string name="list_header_date">Date</string>
     <string name="list_header_payment_mode"> Mode</string>
     <string name="list_header_status"> Status</string>
-
+    <string name="search_header">Enter year</string>
+    <string name="payment_mode">Payment Mode</string>
+    <string name="payment_status">Payment Status</string>
+    <string name="message_received_from">Msg Received From</string>
+    <string name="total_amount">Total Collection Amount : - \u20B9</string>
     <string name="donor">Donor</string>
     <string name="signup_me">Signup</string>
     <string name="data_saved">Registration Done Successfully</string>

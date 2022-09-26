@@ -3,6 +3,7 @@ package com.satyasoft.myschoolavhiyan.activity.ui.graphDetails
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,7 +45,7 @@ class StudentDetailsInGraph : Fragment() {
 
         val sumTotalAmount = SchoolMasterDatabase.getSchoolMasterDataBase(requireContext())
            .studentCollectionRegistrationDAO().getTotalAmount()
-       val totalAccount : String = "Total Collection as on date---${sumTotalAmount.get(0).amount.toString()}"
+       val totalAccount : String = getString(R.string.total_amount)+ sumTotalAmount.get(0).amount.toString()
        totalAmount.text = totalAccount
 
         val getUserId = SchoolMasterDatabase.getSchoolMasterDataBase(requireContext())
