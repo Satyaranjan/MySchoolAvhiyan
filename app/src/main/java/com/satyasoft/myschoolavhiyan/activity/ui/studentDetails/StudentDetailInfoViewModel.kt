@@ -47,33 +47,33 @@ class StudentDetailInfoViewModel : ViewModel( ),LifecycleObserver {
           viewModelScope.launch(Dispatchers.IO) {
             val errorCode = -1
             try {
-                if(NetworkConnectionStatus.checkConnection(context)) {
-                    studentInfoList.clear()
-                    reference.addValueEventListener(object : ValueEventListener {
-                        override fun onDataChange(dataSnapshot: DataSnapshot) {
-                            for (postSnapshot in dataSnapshot.children) {
-                                val studentInfo =
-                                    postSnapshot.getValue(StudentCollectionDetails::class.java)
-                                if (studentInfo != null) {
-                                    studentInfoList.add(studentInfo)
-                                }
-
-                            }
-                            _taxInfoMutableLiveDataList.postValue(ResultOf.Success(studentInfoList))
-
-                        }
-
-                        override fun onCancelled(databaseError: DatabaseError) {
-                            // Getting Post failed, log a message
-                            Log.w("FireBaseViewModel",
-                                "loadPost:onCancelled",
-                                databaseError.toException())
-                            _taxInfoMutableLiveDataList.postValue(ResultOf.Failure("Failed with Error Code $errorCode ",
-                                "error"))
-                            loading.postValue(false)
-                        }
-                    })
-                }else{
+//                if(NetworkConnectionStatus.checkConnection(context)) {
+//                    studentInfoList.clear()
+//                    reference.addValueEventListener(object : ValueEventListener {
+//                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                            for (postSnapshot in dataSnapshot.children) {
+//                                val studentInfo =
+//                                    postSnapshot.getValue(StudentCollectionDetails::class.java)
+//                                if (studentInfo != null) {
+//                                    studentInfoList.add(studentInfo)
+//                                }
+//
+//                            }
+//                            _taxInfoMutableLiveDataList.postValue(ResultOf.Success(studentInfoList))
+//
+//                        }
+//
+//                        override fun onCancelled(databaseError: DatabaseError) {
+//                            // Getting Post failed, log a message
+//                            Log.w("FireBaseViewModel",
+//                                "loadPost:onCancelled",
+//                                databaseError.toException())
+//                            _taxInfoMutableLiveDataList.postValue(ResultOf.Failure("Failed with Error Code $errorCode ",
+//                                "error"))
+//                            loading.postValue(false)
+//                        }
+//                    })
+//                }else{
                     viewModelScope.launch(Dispatchers.IO) {
                         val getUserId = SchoolMasterDatabase.getSchoolMasterDataBase(context)
                             .studentCollectionRegistrationDAO().getAllStudentCollectionRecord()
@@ -83,7 +83,7 @@ class StudentDetailInfoViewModel : ViewModel( ),LifecycleObserver {
                         }
                     }
                     _taxInfoMutableLiveDataList.postValue(ResultOf.Success(studentInfoList))
-                }
+                //}
             } catch (e: Exception) {
                 e.printStackTrace()
                 loading.postValue(false)
@@ -108,48 +108,48 @@ class StudentDetailInfoViewModel : ViewModel( ),LifecycleObserver {
 
         }
     }
-    val saveResult: LiveData<ResultOf<String>> = _saveResult
-    fun saveStudentCollectionsDetails(userId: String,studentDetails: StudentCollectionDetails){
-        loading.postValue(true)
-        viewModelScope.launch(Dispatchers.IO){
-            val errorCode = -1
-            try{
-                val id: String? = reference.push().key
-
-                reference.addValueEventListener(object : ValueEventListener {
-
-                    override fun onDataChange(@NonNull snapshot: DataSnapshot) {
-                        if (id != null) {
-                            reference.child(id).setValue(studentDetails)
-                        }
-
-                        _saveResult.postValue(ResultOf.Success("Data Saved Successfully"))
-                        loading.postValue(false)
-                    }
-                    override fun onCancelled(@NonNull error: DatabaseError) {
-                        _saveResult.postValue(ResultOf.Success("Data Save Failed"))
-                        loading.postValue(false)
-                    }
-                })
-            }catch (e:Exception){
-                e.printStackTrace()
-                loading.postValue(false)
-                if(errorCode != -1){
-                    _saveResult.postValue(ResultOf.Failure(
-                        "Failed with Error Code $errorCode ",
-                        "error"
-                    ))
-                }else{
-                    _saveResult.postValue(ResultOf.Failure(
-                        "Failed with Exception ${e.message} ",
-                        "error"
-                    ))
-                }
-
-
-            }
-        }
-    }
+//    val saveResult: LiveData<ResultOf<String>> = _saveResult
+//    fun saveStudentCollectionsDetails(userId: String,studentDetails: StudentCollectionDetails){
+//        loading.postValue(true)
+//        viewModelScope.launch(Dispatchers.IO){
+//            val errorCode = -1
+//            try{
+//                val id: String? = reference.push().key
+//
+//                reference.addValueEventListener(object : ValueEventListener {
+//
+//                    override fun onDataChange(@NonNull snapshot: DataSnapshot) {
+//                        if (id != null) {
+//                            reference.child(id).setValue(studentDetails)
+//                        }
+//
+//                        _saveResult.postValue(ResultOf.Success("Data Saved Successfully"))
+//                        loading.postValue(false)
+//                    }
+//                    override fun onCancelled(@NonNull error: DatabaseError) {
+//                        _saveResult.postValue(ResultOf.Success("Data Save Failed"))
+//                        loading.postValue(false)
+//                    }
+//                })
+//            }catch (e:Exception){
+//                e.printStackTrace()
+//                loading.postValue(false)
+//                if(errorCode != -1){
+//                    _saveResult.postValue(ResultOf.Failure(
+//                        "Failed with Error Code $errorCode ",
+//                        "error"
+//                    ))
+//                }else{
+//                    _saveResult.postValue(ResultOf.Failure(
+//                        "Failed with Exception ${e.message} ",
+//                        "error"
+//                    ))
+//                }
+//
+//
+//            }
+//        }
+//    }
 
 }
 
