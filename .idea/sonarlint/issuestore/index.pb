@@ -63,13 +63,7 @@ X
 build.gradle,f/0/f07866736216be0ee2aba49e392191aeae700a35
 P
  app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
-z
-Japp/src/main/java/com/satyasoft/myschoolavhiyan/activity/SplashActivity.kt,7/5/753a4858aeea439c93f397d0c5744f78030c5ff8
-z
-Japp/src/main/java/com/satyasoft/myschoolavhiyan/activity/SignupActivity.kt,4/c/4cfd59a607a7a50a8ca6f8cfa80f48690184b310
 €
 Papp/src/main/java/com/satyasoft/myschoolavhiyan/database/StaffRegistrationDAO.kt,3/7/37509d6e0ffdd65338afacb14e3a6a4585474fdc
 }
 Mapp/src/main/java/com/satyasoft/myschoolavhiyan/database/StaffRegistration.kt,7/a/7a1aa2e314342cb19128aa881e1a23bf0f4c577c
-v
-Fapp/src/main/java/com/satyasoft/myschoolavhiyan/utils/CustomDialogs.kt,1/5/154d042005e2e834fd83d987099787cf7b574ded

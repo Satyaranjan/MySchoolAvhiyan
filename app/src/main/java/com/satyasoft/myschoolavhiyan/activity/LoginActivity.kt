@@ -183,7 +183,7 @@ class LoginActivity : AppCompatActivity() {
             if(file.exists()) {
                 val fileReader = FileReader(file)
                 val reader = CSVReader(fileReader)
-                 reader.skip(3)
+                 reader.skip(2)
                 var record: Array<String>?
                 var mId: String
                 var mName: String
@@ -217,7 +217,7 @@ class LoginActivity : AppCompatActivity() {
         try {
             val file =
                 File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                    .toString() + "/" + "Mo School Abhiyan - Collection.csv")
+                    .toString() + "/" + "MoSchoolAbhiyan.csv")
             if(file.exists()) {
                 val fileReader = FileReader(file)
                 val reader = CSVReader(fileReader)

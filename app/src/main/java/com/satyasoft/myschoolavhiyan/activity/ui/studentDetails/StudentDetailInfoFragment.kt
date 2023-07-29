@@ -43,6 +43,7 @@ class StudentDetailInfoFragment : Fragment() {
     private var adapter: CustomAdapter? = null
     private lateinit var progressBar: ProgressBar
 
+    @SuppressLint("SuspiciousIndentation")
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater,
