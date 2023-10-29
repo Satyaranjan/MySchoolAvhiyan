@@ -1,5 +1,6 @@
 package com.satyasoft.myschoolavhiyan.activity.ui.studentDetails
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import androidx.annotation.NonNull
@@ -41,6 +42,7 @@ class StudentDetailInfoViewModel : ViewModel( ),LifecycleObserver {
     private val _taxInfoMutableLiveDataList = MutableLiveData<ResultOf<MutableList<StudentCollectionDetails>>>()
     val taxInfoMutableLiveDataList: LiveData<ResultOf<MutableList<StudentCollectionDetails>>> = _taxInfoMutableLiveDataList
 
+    @SuppressLint("SuspiciousIndentation")
     fun studentDetails(context:Context) {
         loading.postValue(true)
         val studentInfoList = mutableListOf<StudentCollectionDetails>()

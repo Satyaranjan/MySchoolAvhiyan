@@ -84,7 +84,7 @@ class LoginActivity : AppCompatActivity() {
             val getUserId = SchoolMasterDatabase.getSchoolMasterDataBase(this@LoginActivity)
                 .studentRegistrationDAO().getAllStudentRecord()
             if(getUserId.isEmpty()){
-              //  importCSV()
+                importCSV()
             }
 
             val getStudentDetails = SchoolMasterDatabase.getSchoolMasterDataBase(this@LoginActivity)

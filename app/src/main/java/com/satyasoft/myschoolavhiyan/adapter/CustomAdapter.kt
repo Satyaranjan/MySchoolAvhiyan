@@ -1,19 +1,23 @@
 package com.satyasoft.myschoolavhiyan.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.satyasoft.myschoolavhiyan.R
 import com.satyasoft.myschoolavhiyan.database.StudentCollectionDetails
 import com.satyasoft.myschoolavhiyan.interfaces.ClickListener
 import java.util.*
-import com.satyasoft.myschoolavhiyan.database.StudentDetails as StudentDetails
 
 
-open class CustomAdapter(private var studentList: MutableList<StudentCollectionDetails>) :
+open class CustomAdapter(private var context: Context, private var studentList: MutableList<StudentCollectionDetails>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>(){
     lateinit var clickListener: ClickListener
     // create new views
@@ -35,6 +39,28 @@ open class CustomAdapter(private var studentList: MutableList<StudentCollectionD
         holder.paymentMode.text = studentDetails.paymentMethod
         holder.paymentStatus.text = studentDetails.accountStatus
 
+        holder.phoneCall.setOnClickListener{
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:".plus(studentDetails.contactNo))
+            context.startActivity(intent)
+        }
+
+        holder.whatsAppCall.setOnClickListener{
+            val installed: Boolean = appInstalledOrNot("com.whatsapp")
+            val message = "Hi I need your support to implement our school website. Can you all join the coming sunday meeting."
+            if (!installed) {
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data =
+                    Uri.parse("http://api.whatsapp.com/send?phone=+91${studentDetails.contactNo}&text=$message")
+                context.startActivity(intent)
+            } else {
+                Toast.makeText(
+                    context,
+                    "Whats app not installed on your device",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+               }
     }
 
     override fun getItemCount(): Int {
@@ -57,7 +83,21 @@ open class CustomAdapter(private var studentList: MutableList<StudentCollectionD
         val date: TextView = itemView.findViewById(R.id.date)
         val paymentMode: TextView = itemView.findViewById(R.id.paymentMode)
         val paymentStatus: TextView = itemView.findViewById(R.id.paymentStatus)
+        val phoneCall : TextView = itemView.findViewById(R.id.callMe)
+        val whatsAppCall : TextView = itemView.findViewById(R.id.whatsApp)
 
+    }
+
+    open fun appInstalledOrNot(url: String): Boolean {
+        val packageManager: PackageManager = context.getPackageManager()
+        val app_installed: Boolean
+        app_installed = try {
+            packageManager.getPackageInfo(url, PackageManager.GET_ACTIVITIES)
+            true
+        } catch (e: PackageManager.NameNotFoundException) {
+            false
+        }
+        return app_installed
     }
 }
 

@@ -113,8 +113,28 @@
                     android:textSize="20sp">
 
                 </TextView>
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/callMe"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/baseline_phone_24">
 
+                </TextView>
+                <TextView
+                    android:id="@+id/whatsApp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="20dp"
+                    android:background="@drawable/whatsapp_50">
 
+                </TextView>
+</LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -202,6 +222,7 @@
                 </TextView>
 
             </LinearLayout>
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

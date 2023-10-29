@@ -41,8 +41,6 @@ F
 app/proguard-rules.pro,9/e/9e08934d811afe28fbc77aaa3c0d747b94348db9
 X
 (gradle/wrapper/gradle-wrapper.properties,f/b/fbe448ebfc3eb2d4e308f6b8b043666f5b57235e
-P
- app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
 z
 Japp/src/main/java/com/satyasoft/myschoolavhiyan/activity/SplashActivity.kt,7/5/753a4858aeea439c93f397d0c5744f78030c5ff8
 z
@@ -57,8 +55,6 @@ z
 Japp/src/main/java/com/satyasoft/myschoolavhiyan/database/StudentDetails.kt,5/6/569868834407d00029e7220e98be297484c1b02a
 z
 Japp/src/main/java/com/satyasoft/myschoolavhiyan/database/AccountDetails.kt,2/d/2ddef67f63ca2ea6d5e8361ab20f533619a037b1
-x
-Happ/src/main/java/com/satyasoft/myschoolavhiyan/adapter/CustomAdapter.kt,1/3/134fd0bd77174271e17627139bb29d876ac44a2a
 €
 Papp/src/main/java/com/satyasoft/myschoolavhiyan/database/SchoolMasterDatabase.kt,5/6/56f2eeda32002b3d030e85b39743d1a5e56690a3
 ‚

@@ -2,6 +2,7 @@ package com.satyasoft.myschoolavhiyan.activity.ui.studentDetails
 
 import android.accounts.Account
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -48,6 +49,7 @@ class StudentDetailInfoFragment : Fragment() {
     private var adapter: CustomAdapter? = null
     private lateinit var progressBar: ProgressBar
     var  studentDetails : StudentCollectionDetails? = null
+
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,7 +62,7 @@ class StudentDetailInfoFragment : Fragment() {
 
         _binding = FragmentSlideshowBinding.inflate(inflater, container, false)
         val root: View = binding.root
-      //  if (!activity?.let { permissionGranted(it) }!!) requestPermission(activity)
+        if (!activity?.let { permissionGranted(it) }!!) requestPermission(activity)
 
         setHasOptionsMenu(true)
         recyclerView = binding.studentList
@@ -150,7 +152,7 @@ class StudentDetailInfoFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("NotifyDataSetChanged")
     private fun populateAdapter(studentInfoList : MutableList<StudentCollectionDetails>){
-       adapter =  CustomAdapter(studentInfoList)
+       adapter =  CustomAdapter(requireContext(),studentInfoList)
         recyclerView?.adapter = adapter
         adapter!!.notifyDataSetChanged()
         this.studentInfoLists = studentInfoList
