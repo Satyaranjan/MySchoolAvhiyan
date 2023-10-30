@@ -1,6 +1,7 @@
 package com.satyasoft.myschoolavhiyan.adapter
 
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.satyasoft.myschoolavhiyan.R
 import com.satyasoft.myschoolavhiyan.database.StudentCollectionDetails
@@ -47,7 +49,7 @@ open class CustomAdapter(private var context: Context, private var studentList: 
 
         holder.whatsAppCall.setOnClickListener{
             val installed: Boolean = appInstalledOrNot("com.whatsapp")
-            val message = "Hi I need your support to implement our school website. Can you all join the coming sunday meeting."
+            val message = "Hi, We all developer need your support to implement our school website. Can you please join the coming Sunday meeting."
             if (!installed) {
                 val intent = Intent(Intent.ACTION_VIEW)
                 intent.data =
@@ -60,7 +62,24 @@ open class CustomAdapter(private var context: Context, private var studentList: 
                     Toast.LENGTH_SHORT
                 ).show()
             }
-               }
+        }
+
+        holder.emailBox.setOnClickListener{
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "message/rfc822"
+            intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(studentDetails.emailId))
+            intent.putExtra(Intent.EXTRA_SUBJECT, "PBBP Development")
+            intent.putExtra(Intent.EXTRA_TEXT, "Please Join the Call as per schedule time.\n\n Regards\n\n Satyaranjan")
+            try {
+                context.startActivity(Intent.createChooser(intent, "Send mail..."))
+            } catch (ex: ActivityNotFoundException) {
+                Toast.makeText(
+                    context,
+                    "There are no email clients installed.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -85,6 +104,7 @@ open class CustomAdapter(private var context: Context, private var studentList: 
         val paymentStatus: TextView = itemView.findViewById(R.id.paymentStatus)
         val phoneCall : TextView = itemView.findViewById(R.id.callMe)
         val whatsAppCall : TextView = itemView.findViewById(R.id.whatsApp)
+        val emailBox : TextView = itemView.findViewById(R.id.emailBox)
 
     }
 

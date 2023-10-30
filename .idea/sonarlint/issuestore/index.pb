@@ -43,8 +43,6 @@ X
 (gradle/wrapper/gradle-wrapper.properties,f/b/fbe448ebfc3eb2d4e308f6b8b043666f5b57235e
 z
 Japp/src/main/java/com/satyasoft/myschoolavhiyan/activity/SplashActivity.kt,7/5/753a4858aeea439c93f397d0c5744f78030c5ff8
-z
-Japp/src/main/java/com/satyasoft/myschoolavhiyan/activity/SignupActivity.kt,4/c/4cfd59a607a7a50a8ca6f8cfa80f48690184b310
 €
 Papp/src/main/java/com/satyasoft/myschoolavhiyan/database/StaffRegistrationDAO.kt,3/7/37509d6e0ffdd65338afacb14e3a6a4585474fdc
 }
@@ -65,9 +63,9 @@ x
 Happ/src/main/java/com/satyasoft/myschoolavhiyan/retrofitApi/ApiClient.kt,d/2/d2ed09b661e07ce2fe5e988a4d2e784cd48f7b2c
 •
 eapp/src/main/java/com/satyasoft/myschoolavhiyan/activity/ui/studentGallery/StudentGalleryViewModel.kt,d/4/d455317f938c6fc89fb40b2fc7f6d8c41e4413ac
-v
-Fapp/src/main/java/com/satyasoft/myschoolavhiyan/utils/CustomDialogs.kt,1/5/154d042005e2e834fd83d987099787cf7b574ded
 ”
 dapp/src/main/java/com/satyasoft/myschoolavhiyan/activity/ui/studentGallery/StudentGalleryFragment.kt,b/f/bf7e9d69d5491e7bc53ff693e0658fa484b4ec0f
-†
-Vapp/src/main/java/com/satyasoft/myschoolavhiyan/database/StudentCollectionDetailDAO.kt,7/e/7e6bad67593e28387088bc7359fb5a960cbf3d2a
+@
+app/build.gradle,f/4/f4a01d6a4fcb971362ec00a83903fd3902f52164
+„
+Tapp/src/main/java/com/satyasoft/myschoolavhiyan/database/StudentCollectionDetails.kt,c/6/c66ba3352db66949ef875df41c28586c6f378f38
