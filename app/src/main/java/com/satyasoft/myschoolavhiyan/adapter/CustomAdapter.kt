@@ -31,6 +31,7 @@ open class CustomAdapter(private var context: Context, private var studentList: 
     }
 
     // binds the list items to a view
+    @SuppressLint("SuspiciousIndentation")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val studentDetails = studentList[position]
         holder.name.text = studentDetails.name
@@ -40,7 +41,7 @@ open class CustomAdapter(private var context: Context, private var studentList: 
         holder.date.text = studentDetails.date
         holder.paymentMode.text = studentDetails.paymentMethod
         holder.paymentStatus.text = studentDetails.accountStatus
-
+        val message = context.getString(R.string.meeting_request)
         holder.phoneCall.setOnClickListener{
             val intent = Intent(Intent.ACTION_DIAL)
             intent.data = Uri.parse("tel:".plus(studentDetails.contactNo))
@@ -49,8 +50,7 @@ open class CustomAdapter(private var context: Context, private var studentList: 
 
         holder.whatsAppCall.setOnClickListener{
             val installed: Boolean = appInstalledOrNot("com.whatsapp")
-            val message = "Hi, We all developer need your support to implement our school website. Can you please join the coming Sunday meeting."
-            if (!installed) {
+                   if (!installed) {
                 val intent = Intent(Intent.ACTION_VIEW)
                 intent.data =
                     Uri.parse("http://api.whatsapp.com/send?phone=+91${studentDetails.contactNo}&text=$message")
@@ -69,7 +69,7 @@ open class CustomAdapter(private var context: Context, private var studentList: 
             intent.type = "message/rfc822"
             intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(studentDetails.emailId))
             intent.putExtra(Intent.EXTRA_SUBJECT, "PBBP Development")
-            intent.putExtra(Intent.EXTRA_TEXT, "Please Join the Call as per schedule time.\n\n Regards\n\n Satyaranjan")
+            intent.putExtra(Intent.EXTRA_TEXT, message)
             try {
                 context.startActivity(Intent.createChooser(intent, "Send mail..."))
             } catch (ex: ActivityNotFoundException) {
